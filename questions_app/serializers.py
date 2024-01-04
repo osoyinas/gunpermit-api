@@ -3,56 +3,11 @@ from .models import TopicModel, SubtopicModel, QuestionModel
 
 ANSWERS_STRUCTURE = [{'answer': str, 'is_true': bool}] * 3
 DEFAULT_ANSWERS = [{'answer': "respuesta", 'is_true': False}] * 3
-
-
-class SubtopicSerializer(serializers.ModelSerializer):
-    questions = serializers.SerializerMethodField()
-    class Meta:
-        model = SubtopicModel
-        fields = ['id', 'name', 'questions', 'topic']
-    
-    def get_questions(self, obj):
-        return obj.questions.count()
-
-class SubtopicCreationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubtopicModel
-        fields = ['id', 'name']
-
-class TopicSerializer(serializers.ModelSerializer):
-    subtopics = SubtopicSerializer(many=True)
-    questions = serializers.SerializerMethodField()
-    
-    class Meta:
-        model = TopicModel
-        fields = ['id', 'name', 'subtopics', 'questions']
-
-    def get_questions(self, obj):
-        return obj.questions.count() 
-    
-class TopicCreationSerializer(serializers.ModelSerializer):
-    subtopics = SubtopicCreationSerializer(many=True)
-
-    class Meta:
-        model = TopicModel
-        fields = ['id', 'name', 'subtopics']
-
-    def create(self, validated_data):
-        subtopics_data = validated_data.pop('subtopics', [])
-        topic = TopicModel.objects.create(**validated_data)
-        for subtopic in subtopics_data:
-            subtopic['topic'] = topic.id
-            subtopic_serializer = SubtopicSerializer(data=subtopic)
-            subtopic_serializer.is_valid(raise_exception=True)
-            subtopic_serializer.save()
-        return topic
-    
-
 class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.JSONField()
     class Meta:
         model = QuestionModel
-        fields = ['id', 'topic', 'subtopic', 'question', 'answers']
+        fields = ['id','topic', 'subtopic', 'question', 'answers']
     
     def validate_answers(self, answers):
         """
@@ -75,5 +30,51 @@ class QuestionSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError(f"El valor de '{key}' en 'answers' debe ser de tipo {expected_type}.")
 
         return answers
+
+class SubtopicSerializer(serializers.ModelSerializer):
+    questions = serializers.SerializerMethodField()
+    class Meta:
+        model = SubtopicModel
+        fields = ['id', 'name', 'questions', 'topic']
+    
+    def get_questions(self, obj):
+        return obj.questions.count()
+
+
+
+class SubtopicCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubtopicModel
+        fields = ['id', 'name']
+
+class TopicSerializer(serializers.ModelSerializer):
+    subtopics = SubtopicSerializer(many=True)
+    questions = QuestionSerializer(many=True, read_only=True)
+    class Meta:
+        model = TopicModel
+        fields = ['id', 'name', 'subtopics', 'questions']
+
+    # def get_questions(self, obj):
+    #     return obj.questions 
+    
+class TopicCreationSerializer(serializers.ModelSerializer):
+    subtopics = SubtopicCreationSerializer(many=True)
+
+    class Meta:
+        model = TopicModel
+        fields = ['id', 'name', 'subtopics']
+
+    def create(self, validated_data):
+        subtopics_data = validated_data.pop('subtopics', [])
+        topic = TopicModel.objects.create(**validated_data)
+        for subtopic in subtopics_data:
+            subtopic['topic'] = topic.id
+            subtopic_serializer = SubtopicSerializer(data=subtopic)
+            subtopic_serializer.is_valid(raise_exception=True)
+            subtopic_serializer.save()
+        return topic
+    
+
+
 
 
