@@ -1,6 +1,6 @@
 # gunpermit API
 
-RESTful API which serves tests and topics related with Spain's gun permit. All the information is collected from the official (Guardia Civil program)[https://www.guardiacivil.es/es/servicios/armasyexplosivo/controldearmas/autorizaci_armas/licencias_armas/]. 
+RESTful API which serves tests and topics related with Spain's gun permit. All the information is collected from the official [Guardia Civil program](https://www.guardiacivil.es/es/servicios/armasyexplosivo/controldearmas/autorizaci_armas/licencias_armas/). 
 
 # Endpoints
 
