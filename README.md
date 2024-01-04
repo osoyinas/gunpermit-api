@@ -1,17 +1,17 @@
 # gunpermit API
 
-API brinda acceso a las preguntas tipo test y los temas relacionados con el permiso de armas en España. Toda la información ha sido recopilada de los PDF oficiales proporcionados por el programa de la Guardia Civil.
+RESTful API which serves tests and topics related with Spain's gun permit. All the information is collected from the official (Guardia Civil program)[https://www.guardiacivil.es/es/servicios/armasyexplosivo/controldearmas/autorizaci_armas/licencias_armas/]. 
 
 # Endpoints
 
-### Obtener temas disponibles
+## Get available topics
 
+### Request
 ```http
 GET /api/v1/topics
 ```
 
-Devuelve una lista de temas disponibles con enlaces a los detalles de cada tema. Cada tema contiene subtemas, la cantidad total de preguntas, y la fuente oficial del material.
-
+### Response
 ```json
 {
   "topics": [
@@ -42,14 +42,14 @@ Devuelve una lista de temas disponibles con enlaces a los detalles de cada tema.
 }
 ```
 
-### Obtener detalles de un tema específico
+## Retrieve an specific topic
 
+### Request
 ```http
 GET /api/v1/topics/1
 ```
 
-Devuelve los detalles de un tema específico, incluyendo sus subtemas, cantidad total de preguntas y la fuente oficial del material.
-
+### Response
 ```json
 {
   "topic_index": 1,
@@ -65,14 +65,13 @@ Devuelve los detalles de un tema específico, incluyendo sus subtemas, cantidad 
 }
 ```
 
-### Obtener preguntas de un tema específico
+## Get questions from topic
 
+### Request
 ```http
 GET /api/v1/<topic_id>/questions
 ```
-
-Devuelve la lista de preguntas asociadas a un tema específico, incluyendo la información sobre cada pregunta y sus posibles respuestas.
-
+### Response
 ```json
 {
   "topic": {
@@ -102,53 +101,39 @@ Devuelve la lista de preguntas asociadas a un tema específico, incluyendo la in
   ]
 }
 ```
-# Instalación de gunpermit-API
+# Installation
 
-Siga estos pasos para realizar la instalación de la API gunpermit en su entorno local.
+Follow the next steps to run this API in a local enviroment.
 
-## Clonar el Repositorio
-
-Primero, clone el repositorio de gunpermit-API desde GitHub utilizando el siguiente comando:
+## Clone the repository
 
 ```shell
 git clone https://github.com/osoyinas/gunpermit-API.git
 ```
 
-## Configuración del Entorno Virtual
-
-Acceda al directorio recién clonado e inicie un entorno virtual utilizando `virtualenv`. Esto asegurará que las dependencias del proyecto se manejen de manera aislada.
+## Configure a python virtual enviroment
 
 ```shell
 cd gunpermit-API
 virtualenv venv
-```
-
-Active el entorno virtual:
-
-```shell
 source venv/bin/activate
 ```
 
-## Instalación de Dependencias
 
-Instale las dependencias del proyecto utilizando el siguiente comando:
+## Install project's dependencies
 
 ```shell
 pip install -r requirements.txt
 ```
 
-## Migraciones de la Base de Datos
-
-Realice las migraciones necesarias para configurar la base de datos:
+## Make django's migrations
 
 ```shell
 python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 
-## Ejecución del Servidor
-
-Finalmente, inicie el servidor de desarrollo:
+## Run the server
 
 ```shell
 python3 manage.py runserver
