@@ -111,7 +111,7 @@ Follow the next steps to run this API in a local enviroment.
 git clone https://github.com/osoyinas/gunpermit-API.git
 ```
 
-## Configure a python virtual enviroment
+## Setup a python virtual enviroment
 
 ```shell
 cd gunpermit-API
