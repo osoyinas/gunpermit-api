@@ -2,7 +2,6 @@ from rest_framework import generics, permissions
 from .models import TopicModel, SubtopicModel, QuestionModel
 from .serializers import TopicSerializer, TopicCreationSerializer, SubtopicSerializer, QuestionSerializer
 
-
 class ListCreateTopicsView(generics.ListCreateAPIView):
     queryset = TopicModel.objects.all()
 
@@ -12,11 +11,9 @@ class ListCreateTopicsView(generics.ListCreateAPIView):
         return TopicSerializer
 
 
-
-class RetrieveTopicsView(generics.RetrieveAPIView):
+class RetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TopicModel.objects.all()
     serializer_class = TopicSerializer
-
 
 
 class ListCreateQuestionsView(generics.ListCreateAPIView):
@@ -32,3 +29,12 @@ class ListQuestionsTopicView(generics.ListAPIView):
         topic_id = self.kwargs.get('topic_id')    
         queryset = QuestionModel.objects.filter(topic__id=topic_id)
         return queryset
+
+class DestroyUpdateQuestionView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = QuestionModel.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class DestroyUpdateSubtopicView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SubtopicModel.objects.all()
+    serializer_class = SubtopicSerializer
