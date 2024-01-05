@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import PDFFile
 from questions_app.serializers import TopicSerializer
-from questions_app.models import TopicModel, SubtopicModel, QuestionModel
+from questions_app.models import TopicModel, QuestionModel
 from .pdf_scrapper import get_text_from, extract_questions_and_answers
 
 class PDFFileSerializer(serializers.ModelSerializer):
@@ -18,11 +18,8 @@ class PDFFileSerializer(serializers.ModelSerializer):
             pdf_data = extract_questions_and_answers(pdf_content)
             topic_model = TopicModel.objects.create(name=pdf_data["topic"])
             topic_model.save()
-            for subtopic in pdf_data['subtopics']:
-                subtopic_model = SubtopicModel.objects.create(topic=topic_model, name=subtopic)
-                subtopic_model.save()
             for question in pdf_data['questions']:
-                question_model = QuestionModel.objects.create(topic=topic_model, subtopic=subtopic_model, question=question['question'], answers=question['answers'])
+                question_model = QuestionModel.objects.create(topic=topic_model, question=question['question'], answers=question['answers'])
                 question_model.save()
             pdf_file.topic = topic_model
             pdf_file.save()
