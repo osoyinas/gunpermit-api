@@ -1,23 +1,13 @@
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
-from questions_app.serializers import QuestionSerializer, TopicCreationSerializer
 from .models import TopicModel, QuestionModel
-from unittest import skip
 
 class TopicTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-
-        topicA_data = {'name': 'Topic 1', 'subtopics': [{'name': 'Subtopic 1'}, {'name': 'Subtopic 2'}]}
-        topicA = TopicCreationSerializer(data = topicA_data)
-        topicA.is_valid(raise_exception=True)
-        self.topicA = topicA.save()
-
-        topicB_data = {'name': 'Topic 2', 'subtopics': [{'name': 'Subtopic 3'}, {'name': 'Subtopic 4'}]}
-        topicB = TopicCreationSerializer(data = topicB_data)
-        topicB.is_valid(raise_exception=True)
-        self.topicB = topicB.save()
+        self.topicA = TopicModel.objects.create(name='Topic 1')
+        self.topicB = TopicModel.objects.create(name='Topic 2')
 
 
     def test_list_create_topics_view(self):
@@ -34,12 +24,8 @@ class TopicTests(TestCase):
 class QuestionTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        data = {'name': 'Topic 1', 'subtopics': [{'name': 'Subtopic 1'}, {'name': 'Subtopic 2'}]}
-
-        topic_serializer = TopicCreationSerializer(data = data)
-        topic_serializer.is_valid(raise_exception=True)
-        self.topic = topic_serializer.save()
-        self.question = QuestionModel.objects.create(question='Question1',answers=[{'answer': 'Respuesta 1', 'is_true': True}, {'answer': 'Respuesta 2', 'is_true': False}, {'answer': 'Respuesta 3', 'is_true': False}],  topic=self.topic, subtopic=self.topic.subtopics.first())
+        self.topic = TopicModel.objects.create(name='Topic 1')
+        self.question = QuestionModel.objects.create(question='Question 1',answers=[{'answer': 'Respuesta 1', 'is_true': True}, {'answer': 'Respuesta 2', 'is_true': False}, {'answer': 'Respuesta 3', 'is_true': False}],  topic=self.topic, subtopic=self.topic.subtopics.first())
 
 
     def test_create_question_view(self):
