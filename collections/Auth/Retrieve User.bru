@@ -1,0 +1,15 @@
+meta {
+  name: Retrieve User
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url}}/me/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1ODYwNjgwLCJpYXQiOjE3MDU4NTgyOTIsImp0aSI6IjgwMjVlNDAzZTZjYjQ2NWI5NGMyMjgyYzAyMDUxZmU1IiwidXNlcl9pZCI6Mn0.59fenO1_mfELI6Y4GGIGdSXfPX6ebu9lFCdHZwHVAW0
+}
