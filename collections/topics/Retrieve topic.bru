@@ -1,0 +1,15 @@
+meta {
+  name: Retrieve topic
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}/topics/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1ODU5MjI2LCJpYXQiOjE3MDU4NTg5MjYsImp0aSI6ImIyMjA1ZWMwNDY1MDRmYzJiYmQxMThlOGI1MzE1MTE0IiwidXNlcl9pZCI6Mn0.co350lr79OpqXeQk5wqBu3js0TzD8WWCXzDJu2kQ2zU
+}

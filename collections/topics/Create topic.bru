@@ -1,0 +1,22 @@
+meta {
+  name: Create topic
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/topics/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "name": 
+      "Tema de prueba"
+  }
+}
