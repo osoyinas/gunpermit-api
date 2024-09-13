@@ -2,8 +2,8 @@ from django.urls import path
 from .views import CreateListPDFView, DeletePDFView, DeleteAllPDFView
 
 urlpatterns = [
-    path('pdfs/', CreateListPDFView.as_view()),
-    path('pdfs/<int:pk>/', DeletePDFView.as_view()),
-    path('pdfs/create/', DeletePDFView.as_view()),
-    path('pdfs/delete/', DeleteAllPDFView.as_view()),
+    path('', CreateListPDFView.as_view()),
+    path('<int:pk>/', DeletePDFView.as_view()),
+    path('create/', DeletePDFView.as_view()),
+    path('delete/', DeleteAllPDFView.as_view()),
 ]
