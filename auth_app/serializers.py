@@ -5,8 +5,14 @@ from django.contrib.auth import get_user_model
 
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    password = serializers.CharField()
+    email = serializers.EmailField(
+        max_length=255,
+    )
+    password = serializers.CharField(
+        max_length=24,
+        min_length=8,
+        write_only=True
+    )
 
     def validate(self, data):
         email = data.get('email', None)
@@ -14,7 +20,7 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(username=email, password=password)
         if user is None:
             raise serializers.ValidationError(
-                'A user with this email and password is not found.'
+                'Correo o contraseña incorrectos.'
             )
         return user
 
