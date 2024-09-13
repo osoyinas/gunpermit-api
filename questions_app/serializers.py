@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import TopicModel, QuestionModel 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 ANSWERS_STRUCTURE = [{'answer': str, 'is_true': bool}] * 3
 DEFAULT_ANSWERS = [{'answer': "respuesta", 'is_true': False}] * 3

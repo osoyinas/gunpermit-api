@@ -5,14 +5,14 @@ meta {
 }
 
 post {
-  url: {{url}}/token/
+  url: {{url}}/api/auth/login
   body: json
   auth: none
 }
 
 body:json {
   {
-    "username": "{{username}}",
+    "email": "{{email}}",
     "password": "{{password}}"
   }
 }

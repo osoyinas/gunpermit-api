@@ -1,18 +1,18 @@
 meta {
-  name: Register
+  name: login
   type: http
-  seq: 4
+  seq: 2
 }
 
 post {
-  url: {{url}}/register/
+  url: {{url}}/login/
   body: json
   auth: none
 }
 
 body:json {
   {
-    "email":"hola@gmail.com",
+    "email": "hola@gmail.com",
     "password": "1234"
   }
 }
