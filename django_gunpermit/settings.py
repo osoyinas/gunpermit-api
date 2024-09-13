@@ -150,6 +150,10 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SECRET_KEY,
 }
 
+
+# Custom user model
 AUTH_USER_MODEL = 'auth_app.CustomUser'
+
+# Custom authentication backend to use email instead of username
 AUTHENTICATION_BACKENDS = ['auth_app.backends.EmailBackend']
 
