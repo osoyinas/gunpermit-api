@@ -19,8 +19,11 @@ class LoginView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data
             tokens = serializer.get_tokens(user)
-
-            response = Response(tokens, status=status.HTTP_200_OK)
+            
+            response_data = {
+                'access': tokens['access'],
+            }
+            response = Response(response_data, status=status.HTTP_200_OK)
             set_refresh_token_in_cookies(response, tokens['refresh'])
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -32,11 +35,16 @@ class RegisterUserView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.validated_data
+            user = serializer.save()
             tokens = serializer.get_tokens(user)
-            response = Response(tokens, status=status.HTTP_200_OK)
+
+            response_data = {
+                'access': tokens['access'],
+            }
+            response = Response(response_data, status=status.HTTP_200_OK)
             set_refresh_token_in_cookies(response, tokens['refresh'])
             return response
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -48,16 +56,15 @@ class CookieTokenRefreshView(APIView):
 
         try:
             token = RefreshToken(refresh_token)
-            new_access_token = str(token.access_token)
-            new_refresh_token = str(token)
+            access_token = str(token.access_token)
+            refresh_token = str(token)
 
             response_data = {
-                'access': new_access_token,
-                'refresh': new_refresh_token
+                'access': access_token,
             }
 
             response = Response(response_data, status=status.HTTP_200_OK)
-            set_refresh_token_in_cookies(response, new_refresh_token)
+            set_refresh_token_in_cookies(response, refresh_token)
             return response
         except TokenError:
             response = Response(
@@ -94,5 +101,6 @@ def set_refresh_token_in_cookies(response: Response, refresh_token: str):
 
 
 def delete_refresh_token_from_cookies(response: Response):
-    response.set_cookie('refreshToken', samesite='none', httponly=True, secure=True, max_age=0)
+    response.set_cookie('refreshToken', samesite='none',
+                        httponly=True, secure=True, max_age=0)
     return response
