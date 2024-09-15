@@ -68,5 +68,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        generated_username = validated_data["email"].split("@")[0]
+        validated_data["username"] = generated_username
+
+        del validated_data["repeat_password"]
+        
         user = get_user_model().objects.create_user(**validated_data)
         return user
+    
+    def get_tokens(self, user):
+        refresh = RefreshToken.for_user(user)
+        return {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
