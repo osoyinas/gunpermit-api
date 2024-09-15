@@ -43,16 +43,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "first_name": {
                 "required": True,
+                "allow_blank": False,
+
             },
             "last_name": {
                 "required": True,
+                "allow_blank": False,
             },
             "email": {
                 "required": True,
+                "max_length": 255,
+                "allow_blank": False,
             },
             "password": {
                 "write_only": True,
                 "required": True,
+                "min_length": 8,
+                "max_length": 24,
+                "allow_blank": False,
             },
             "repeat_password": {
                 "write_only": True,
