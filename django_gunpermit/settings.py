@@ -160,3 +160,12 @@ AUTHENTICATION_BACKENDS = ['auth_app.backends.EmailBackend']
 
 LANGUAGE_CODE = "es-es"
 
+
+
+# CORS CONFIG
+
+CORS_ALLOW_CREDENTIALS = True  # Permite el uso de credenciales (cookies)
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Dominio de tu frontend
+]
