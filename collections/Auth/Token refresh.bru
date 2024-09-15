@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: {{url}}/token/refresh/
-  body: json
+  url: {{url}}auth/refresh-token/
+  body: none
   auth: none
+}
+
+headers {
+  Cookie: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNjkxNjI4MCwiaWF0IjoxNzI2MzExNDgwLCJqdGkiOiI5ZDA5YzU4NTk1YzM0ZWI1YTZkMWEwNmI2NWE5MDRmNiIsInVzZXJfaWQiOjJ9.8peL50RcQwCJuxcHetK7IVd8QY-N0OzsgC_gKd7DXso
 }
 
 body:json {
