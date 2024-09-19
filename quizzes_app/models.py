@@ -2,6 +2,7 @@ from django.db import models
 
 from questions_app.models import QuestionModel
 
+
 class QuizModel(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
@@ -9,14 +10,15 @@ class QuizModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     questions = models.ManyToManyField(
         QuestionModel,
-        through='QuizQuestion',
+        through='QuizQuestionModel',
         related_name='quizzes'
     )
 
     def __str__(self):
         return self.title
 
-class QuizQuestion(models.Model):
+
+class QuizQuestionModel(models.Model):
     quiz = models.ForeignKey(QuizModel, on_delete=models.CASCADE)
     question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE)
     order = models.PositiveIntegerField(default=0)
