@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'questions_app',
     'auth_app',
-    'pdf_files_app'
+    'pdf_files_app',
+    'quizzes_app',
 ]
 
 MIDDLEWARE = [
