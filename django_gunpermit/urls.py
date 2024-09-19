@@ -21,18 +21,20 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Gun permit API",
-      default_version='v1',
-      description="API documentation",
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Gun permit API",
+        default_version='v1',
+        description="API documentation",
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 urlpatterns = [
-    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('', schema_view.with_ui('swagger', cache_timeout=0),
+         name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
     path('api/v1/', include('questions_app.urls')),
     path('api/v1/pdfs/', include('pdf_files_app.urls')),
-    path('api/v1/auth/', include('auth_app.urls')), 
+    path('api/v1/auth/', include('auth_app.urls')),
+    path('api/v1/quizzes/', include('quizzes_app.urls')),
 ]
