@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from .models import TopicModel, QuestionModel
 from .serializers import TopicSerializer, QuestionSerializer
 
+
 class ListCreateTopicsView(generics.ListCreateAPIView):
     queryset = TopicModel.objects.all()
     serializer_class = TopicSerializer
@@ -12,6 +13,7 @@ class ListCreateTopicsView(generics.ListCreateAPIView):
         else:
             self.permission_classes = [permissions.IsAuthenticated,]
         return super().get_permissions()
+
 
 class RetrieveUpdateDestroyTopicsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TopicModel.objects.all()
@@ -36,9 +38,11 @@ class ListCreateQuestionsView(generics.ListCreateAPIView):
             self.permission_classes = [permissions.IsAuthenticated,]
         return super().get_permissions()
 
+
 class ListQuestionsTopicView(generics.ListAPIView):
     serializer_class = QuestionSerializer
     permission_classes = [permissions.IsAuthenticated]
+
     def get_queryset(self, *args, **kwargs):
         # Obtiene el <topic_id> de la URL
         topic_id = self.kwargs.get('topic_id')
