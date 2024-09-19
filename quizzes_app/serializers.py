@@ -1,30 +1,28 @@
 from rest_framework import serializers
 
 from questions_app.serializers import QuestionSerializer
-from .models import QuizModel, QuizQuestion
+from .models import QuizModel, QuizQuestionModel
+from questions_app.models import QuestionModel
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
     question = QuestionSerializer()
 
     class Meta:
-        model = QuizQuestion
-        fields = ['question', 'order']
+        model = QuizQuestionModel
+        fields = ['question']
+
 
 class QuizSerializer(serializers.ModelSerializer):
-    questions = QuizQuestionSerializer(many=True, required=False)
+    questions = QuizQuestionSerializer(
+        source='quizquestionmodel_set',
+        many=True)
 
     class Meta:
         model = QuizModel
-        fields = ['id', 'title', 'description', 'questions']
-
-    def create(self, validated_data):
-        questions_data = validated_data.pop('questions', [])
-        test = QuizModel.objects.create(**validated_data)
-        for question_data in questions_data:
-            QuizQuestion.objects.create(test=test, **question_data)
-        return test
-
-    def update(self, instance, validated_data):
-
-        return instance
+        fields = ['id',
+                  'title',
+                  'description',
+                  'created_at',
+                  'updated_at',
+                  'questions']
