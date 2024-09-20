@@ -11,7 +11,8 @@ class QuizModel(models.Model):
     questions = models.ManyToManyField(
         QuestionModel,
         through='QuizQuestionModel',
-        related_name='quizzes'
+        related_name='quizzes',
+        related_query_name='quiz'
     )
 
     def __str__(self):
@@ -25,4 +26,6 @@ class QuizQuestionModel(models.Model):
 
     class Meta:
         ordering = ['order']
-        unique_together = ('quiz', 'question')
+        constraints = [
+            models.UniqueConstraint(fields=['quiz', 'question'], name='unique_quiz_question')
+        ]
