@@ -13,7 +13,7 @@ class QuizTests(TestCase):
         self.quiz = createQuizMock()
 
     def test_retrieve_quiz(self):
-        url = reverse('retrieve_quiz', kwargs={'pk': self.quiz.id})
+        url = reverse('retrieve-destroy-quiz', kwargs={'pk': self.quiz.id})
 
         response = self.client.get(url)
 
