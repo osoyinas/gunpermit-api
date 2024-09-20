@@ -1,8 +1,9 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import RetrieveDestroyAPIView
+from .views import RetrieveDestroyQuizAPIView, CreateQuizAPIView
 
 
 urlpatterns = [
-    path('<int:pk>/', RetrieveDestroyAPIView.as_view(), name='retrieve-destroy-quiz'),
+    path('', CreateQuizAPIView.as_view(), name='create-quiz'),
+    path('<int:pk>/', RetrieveDestroyQuizAPIView.as_view(), name='retrieve-destroy-quiz'),
 ]
