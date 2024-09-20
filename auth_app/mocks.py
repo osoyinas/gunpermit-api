@@ -12,6 +12,16 @@ def createUserMock(
         email=email,
         password=password)
 
+def createUserStaffMock(
+        username: str = 'test',
+        email: str = 'test@gmail.com',
+        password: str = 'test'):
+    return get_user_model().objects.create_user(
+        username=username,
+        email=email,
+        password=password,
+        is_staff=True)
+
 
 def getAuthenticatedClient(user):
     if not user:
