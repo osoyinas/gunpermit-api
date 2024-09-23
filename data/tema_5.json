@@ -1,0 +1,595 @@
+[
+    {
+        "question": "En materia de armas, los hechos pueden ser constitutivos de:",
+        "options": [
+            "Infracciones penales e infracciones administrativas.",
+            "Infracciones penales.",
+            "Infracciones muy graves, graves y leves."
+        ],
+        "answer": 0
+    },
+    {
+        "question": "En materia de armas, y de las clases de infracciones administrativas que se expresan. Indicar la proposición correcta.",
+        "options": [
+            "Graves, menos graves y leves.",
+            "Muy Graves, graves y leves.",
+            "Graves y leves."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "¿Quién es competente para imponer sanciones al Reglamento de Armas?",
+        "options": [
+            "El/La Delegado/a del Gobierno y el/la directora/a General de la Guardia Civil.",
+            "El/La alcalde/sa.",
+            "Las dos anteriores son correctas."
+        ],
+        "answer": 2
+    },
+    {
+        "question": "De las que se citan ¿Qué autoridades son competentes para ordenar la instrucción de un procedimiento sancionador en materia de armas?",
+        "options": [
+            "Interventor/a de Armas y Explosivos.",
+            "Director/a General de la Guardia Civil, Delegado/a del Gobierno y los/las Alcaldes/sas.",
+            "Delegado/a de Hacienda."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "¿Cuándo prescribirán las infracciones administrativas leves?",
+        "options": [
+            "A los 3 meses.",
+            "Al año.",
+            "A los 2 años."
+        ],
+        "answer": 0
+    },
+    {
+        "question": "¿Cuándo prescribirán las infracciones administrativas graves?",
+        "options": [
+            "A los 3 meses.",
+            "Al año.",
+            "A los 2 años."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "¿Cuándo prescribirán las infracciones administrativas muy graves?",
+        "options": [
+            "A los 3 meses.",
+            "Al año.",
+            "A los 2 años."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "¿Cuándo prescribirán las sanciones leves?",
+        "options": [
+            "Al año.",
+            "A los 2 años.",
+            "A los 4 años."
+        ],
+        "answer": 0
+    },
+    {
+        "question": "¿Cuándo prescribirán las sanciones graves?",
+        "options": [
+            "Al año.",
+            "A los 2 años.",
+            "A los 4 años."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "¿Cuándo prescribirán las sanciones muy graves?",
+        "options": [
+            "Al año.",
+            "A los 2 años.",
+            "A los 4 años."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "¿Las sanciones impuestas en materia de armas, ¿Cuándo serán ejecutivas?",
+        "options": [
+            "Cuando las resoluciones adquieran firmeza en vía administrativa.",
+            "A los diez días de notificar la resolución al interesado.",
+            "A los 30 días de notificar la resolución al interesado."
+        ],
+        "answer": 0
+    },
+    {
+        "question": "¿Se pueden imponer sanciones penales y administrativas por un mismo hecho?",
+        "options": [
+            "Sí.",
+            "En ningún caso.",
+            "Dependerá de la Autoridad Judicial."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, el almacenamiento, sin autorización, de un arma larga rayada, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Muy grave",
+            "Grave",
+            "Leve"
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, el almacenamiento, sin autorización, de un arma larga de ánima lisa, ¿De qué infracción administrativa se trata?",
+        "options": [
+            "Muy grave",
+            "Grave",
+            "Leve"
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, la insuficiencia de las medidas de seguridad obligatorias en la fase de almacenamiento, de un arma larga rayada, ¿qué infracción administrativa puede constituir?",
+        "options": [
+            "Muy grave",
+            "Grave",
+            "Leve"
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de almacenamiento, de un arma larga rayada, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Muy grave",
+            "Grave",
+            "Leve"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "La tenencia de una escopeta careciendo de guía de pertenencia es una infracción...",
+        "options": [
+            "Gravísima",
+            "Leve",
+            "Ninguna de las anteriores."
+        ],
+        "answer": 2
+    },
+    {
+        "question": "¿Qué sanción pecuniaria puede imponer la autoridad competente por una infracción muy grave al Reglamento de Armas?",
+        "options": [
+            "Multa de 30050'61 a 601012'10 euros.",
+            "Multa de 300'51 a 3005'06 euros.",
+            "Multa de hasta 300'51 euros."
+        ],
+        "answer": 0
+    },{
+        "question": "Si no constituye infracción penal, la reparación sin autorización de una ballesta, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la reparación sin autorización de un arma para lanzar cabos, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el almacenamiento sin autorización de una ballesta, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el almacenamiento sin autorización de un arma para lanzar cabos, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de almacenamiento, de una arma cuya tenencia requiera licencia “E”, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la insuficiencia de las medidas de seguridad obligatorias en la fase de almacenamiento, de armas cuya tenencia requiera licencia “E”, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de circulación, de un arma cuya tenencia requiera licencia “E”, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la insuficiencia de las medidas de seguridad obligatorias en la fase de circulación de un arma cuya tenencia requiera licencia “E”, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la insuficiencia de las medidas de seguridad obligatorias en la fase de almacenamiento por particulares en domicilio, de un arma larga rayada, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de almacenamiento por particulares en domicilio, de un arma larga rayada, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de almacenamiento por particulares en el lugar de uso, de un arma larga rayada, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la insuficiencia de las medidas de seguridad obligatorias en la fase de almacenamiento por particulares en domicilio, de un arma larga de ánima lisa, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de almacenamiento por particulares en domicilio, de un arma larga de ánima lisa, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la omisión de las medidas de seguridad obligatorias en la fase de almacenamiento por particulares en el lugar de uso, de un arma larga de ánima lisa, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el impedimento para que las Autoridades competentes, realicen cuantos controles sean necesarios relativos a la tenencia de un arma, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el impedimento para que las Autoridades competentes, realicen cuantos controles sean necesarios relativos a la utilización de un arma, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el impedimento para que las Autoridades competentes, realicen cuantos controles sean necesarios relativos al almacenamiento de un arma, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la adquisición de armas de la 2ª.2 y 3ª2 por particulares, sin tener las autorizaciones o licencias pertinentes, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la tenencia de armas de la 2ª.2 y 3ª2 por particulares, sin tener las autorizaciones o licencias pertinentes, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la cesión de armas de la 2ª.2 y 3ª2 por particulares, sin tener las autorizaciones o licencias pertinentes, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la enajenación de armas de la 2ª.2 y 3ª2 por particulares, sin tener las autorizaciones o licencias pertinentes, ¿De qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la alegación de datos falsos para obtener las licencias pertinentes, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el uso de cualquier arma de fuego reglamentaria, con omisión de las medidas o precauciones obligatorias para garantizar la seguridad de las personas o cosas, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el uso de cualquier arma de fuego reglamentaria, con insuficiencia de las medidas o precauciones obligatorias para garantizar la seguridad de las personas o cosas, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, portar armas de cualquier clase en establecimientos públicos, salvo que estuvieren habilitados, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, portar armas de cualquier clase en lugares de reunión salvo que estuvieren habilitados, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, portar armas de cualquier clase en lugares de concentración, salvo que estuvieren habilitados, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, portar armas de cualquier clase en lugar de recreo, salvo que estuviere habilitado, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, portar armas de cualquier clase en lugar de esparcimiento, salvo que estuviere habilitado, ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "¿Qué tipo de infracción constituye la tenencia de un arma larga rayada de la categoría 2ª.2 en el domicilio careciendo de armero o caja fuerte para su custodia?",
+        "options": [
+            "Infracción Leve",
+            "Infracción Muy Grave",
+            "Infracción Grave"
+        ],
+        "answer": 2
+    },
+    {
+        "question": "La tenencia de una escopeta con la Licencia caducada hace tan sólo 20 días constituye una infracción...",
+        "options": [
+            "Grave",
+            "Leve porque es poco tiempo desde que ha caducado",
+            "No es ninguna infracción porque no me he dado cuenta y ya acudiré a la Intervención para renovarla"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "La alegación de un domicilio en el que no resido para la documentar una escopeta, es una infracción...",
+        "options": [
+            "Leve",
+            "No es ninguna infracción",
+            "Grave"
+        ],
+        "answer": 2
+    },
+    {
+        "question": "La negativa a presentar un rifle y sus documentos a un/una Policía Nacional cuando nos lo requiere, es una infracción...",
+        "options": [
+            "Muy Grave",
+            "No es ninguna infracción puesto que sólo las debo presentar en la Intervención de Armas de la Guardia Civil o a alguno/a de sus agentes",
+            "Grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "¿Qué sanción pecuniaria puede imponer la autoridad competente por una infracción grave al Reglamento de Armas?",
+        "options": [
+            "Multa de 30050 ́61 a 601012 ́10 _.",
+            "Multa de 300 ́51 a 30050 ́61 ____.",
+            "Multa de hasta 300 ́51 _."
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, la adquisición de ballestas por particulares, sin tener las autorizaciones o licencias pertinentes ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Muy grave",
+            "Grave",
+            "Leve"
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, la tenencia de ballestas por particulares, sin tener las autorizaciones o licencias pertinentes ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Leve",
+            "Grave",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la cesión de ballestas por particulares, sin tener las autorizaciones o licencias pertinentes ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Leve",
+            "Grave",
+            "Muy grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, la enajenación de ballestas por particulares, sin tener las autorizaciones o licencias pertinentes ¿de qué infracción administrativa se trata?",
+        "options": [
+            "Muy grave",
+            "Leve",
+            "Grave"
+        ],
+        "answer": 1
+    },
+    {
+        "question": "Si no constituye infracción penal, el incumplimiento de dar cuenta a la Guardia Civil de la destrucción de la documentación de un arma, ¿De qué infracción administrativa se trata?",
+        "options": [
+            "Leve",
+            "Muy grave",
+            "Grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el incumplimiento de dar cuenta a la Guardia Civil de la pérdida de la documentación de un arma, ¿De qué infracción administrativa se trata?",
+        "options": [
+            "Leve",
+            "Muy grave",
+            "Grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el incumplimiento de dar cuenta a la Guardia Civil de la sustracción de la documentación de un arma, ¿De qué infracción administrativa se trata?",
+        "options": [
+            "Leve",
+            "Muy grave",
+            "Grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si no constituye infracción penal, el incumplimiento de realizar las declaraciones obligatorias, ¿De qué infracción administrativa se trata?",
+        "options": [
+            "Leve",
+            "Muy grave",
+            "Grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "La omisión de la revistas constituye una infracción...",
+        "options": [
+            "Grave",
+            "Leve",
+            "Muy Grave"
+        ],
+        "answer": 0
+    },
+    {
+        "question": "¿Qué sanción pecuniaria puede imponer la autoridad competente por una infracción leve al Reglamento de Armas?",
+        "options": [
+            "Multa de 3005 ́07 a 6010 ́12 euros.",
+            "Multa de 300 ́51 a 3005 ́06 euros.",
+            "Multa de hasta 300 ́51 euros."
+        ],
+        "answer": 2
+    },
+    {
+        "question": "¿Qué implica la retirada de las armas?",
+        "options": [
+            "La desposesión de las mismas y la prohibición de la adquisición y tenencia de otras.",
+            "El depósito del arma para subastarla.",
+            "No hacer uso del arma durante un tiempo."
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Señale la opción correcta de las siguientes propuestas:",
+        "options": [
+            "Es lícito llevar o usar armas en una manifestación de personas por motivos de seguridad.",
+            "Puedo adquirir una escopeta de caza para poder defenderme en una casa de campo.",
+            "Se considera ilícito el hecho de llevar o usar armas los concurrentes a establecimientos públicos o lugares de reunión."
+        ],
+        "answer": 2
+    },
+    {
+        "question": "Tengo una escopeta de caza y la dedico solamente para la caza del conejo, por lo que decido recortar en mi casa la longitud de los cañones en diez centímetros para que se abra mejor el tiro, ¿puedo hacerlo?",
+        "options": [
+            "No",
+            "Sí, con autorización del/la Delegado/a del Gobierno.",
+            "Sí puedo porque diez centímetros de cañón es muy poco y no afecta al arma."
+        ],
+        "answer": 0
+    },
+    {
+        "question": "Si me sorprende la Autoridad con un cargador para arma corta de 25 cartuchos, sin la autorización pertinente. ¿Qué conlleva a parte de la incoación del correspondiente expediente sancionador?",
+        "options": [
+            "Retirada de todas las licencias de armas que posea.",
+            "Incautación de los cargadores.",
+            "Ambas son correctas"
+        ],
+        "answer": 2
+    }
+]
