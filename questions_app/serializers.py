@@ -9,28 +9,6 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionModel
         fields = ['id','topic', 'question', 'answers']
-    
-    def validate_answers(self, answers):
-        """
-        Validación personalizada para el campo 'answers' para que coincida con la estructura de ANSWERS_STRUCTURE
-        """
-        if not isinstance(answers, list):
-            raise serializers.ValidationError("El campo 'answers' debe ser una lista.")
-        if len(answers) != len(ANSWERS_STRUCTURE):
-            raise serializers.ValidationError(f"El campo 'answers' debe tener exactamente {len(ANSWERS_STRUCTURE)} elementos.")
-        
-        for expected_answer, received_answer in zip(ANSWERS_STRUCTURE, answers):
-            if not isinstance(received_answer, dict):
-                raise serializers.ValidationError("Cada elemento en 'answers' debe ser un diccionario.")
-            
-            for key, expected_type in expected_answer.items():
-                if key not in received_answer:
-                    raise serializers.ValidationError(f"Falta la clave '{key}' en uno de los elementos de 'answers'.")
-                
-                if not isinstance(received_answer[key], expected_type):
-                    raise serializers.ValidationError(f"El valor de '{key}' en 'answers' debe ser de tipo {expected_type}.")
-
-        return answers
 
 
 class TopicSerializer(serializers.ModelSerializer):
