@@ -1,4 +1,6 @@
-[
+{
+    "topic": "tema 7: armas de colección, definiciones del artículo 2 del reglamento de armas y artículo 107, historia de las armas de fuego, calibres, munición y pólvora.",
+    "questions": [
     {
         "question": "¿En la Categoría 6ª.2 del artículo 3, del Reglamento de Armas, se encuentran las armas de fuego cuyo modelo o año de fabricación sean anteriores al 1 de enero de 1899, y las reproducciones de las mismas, a menos que puedan disparar municiones destinadas a armas de guerra o a armas prohibidas?",
         "options": [
@@ -198,3 +200,4 @@
         "answer": 2
     }
 ]
+}

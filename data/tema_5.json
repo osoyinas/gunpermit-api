@@ -1,4 +1,6 @@
-[
+{
+    "topic": "tema 5: Régimen sancionador, infracciones muy graves, graves y leves, retirada de armas",
+    "questions": [
     {
         "question": "En materia de armas, los hechos pueden ser constitutivos de:",
         "options": [
@@ -593,3 +595,4 @@
         "answer": 2
     }
 ]
+}
