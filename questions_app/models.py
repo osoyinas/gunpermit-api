@@ -5,6 +5,8 @@ from django.forms import ValidationError
 class TopicModel(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
 
 ANSWERS_STRUCTURE = [{'answer': str, 'is_true': bool}] * 3
 DEFAULT_ANSWERS = [{'answer': "respuesta", 'is_true': False}] * 3
