@@ -51,7 +51,7 @@ class QuestionTests(TestCase):
                     {'answer': 'Respuesta 2', 'is_true': False},
                     {'answer': 'Respuesta 3', 'is_true': False}
                 ]}
-        
+
         response = self.client.post(url, data=data, format='json')
         self.assertEqual(response.status_code, 201)
 
@@ -61,3 +61,23 @@ class QuestionTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
+
+    def test_retrieve_question_view(self):
+        url = reverse('retrieve_destroy_update_question',
+                      kwargs={'pk': self.question.id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_question_view(self):
+        url = reverse('retrieve_destroy_update_question',
+                      kwargs={'pk': self.question.id})
+        data = {'question': 'Pregunta 2',
+                'answers': [
+                    {'answer': 'Respuesta 1', 'is_true': True},
+                    {'answer': 'Respuesta 2', 'is_true': False},
+                    {'answer': 'Respuesta 3', 'is_true': False}
+                ]}
+
+        response = self.client.patch(url, data=data, format='json')
+        print(response.data)
+        self.assertEqual(response.status_code, 200)
