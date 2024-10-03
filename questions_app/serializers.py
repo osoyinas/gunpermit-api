@@ -15,6 +15,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class TopicSerializer(serializers.ModelSerializer):
 
+    questions = QuestionSerializer(many=True, read_only=True)
+
     class Meta:
         model = TopicModel
-        fields = ['id', 'name',]
+        fields = ['id', 'name', 'questions']
