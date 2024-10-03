@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Tema 1: funcionamiento de las armas"
+    },
+    {
+        "id": 2,
+        "name": "tema 2: categoría de las armas según el vigente reglamento de armas armas semiautomáticas, armas de repetición, armas prohibidas "
+    },
+    {
+        "id": 3,
+        "name": "tema 3: Circulación de armas, revista de armas, transferencias de armas"
+    },
+    {
+        "id": 4,
+        "name": "tema 4: Documentación para la tenencia y uso de armas"
+    },
+    {
+        "id": 5,
+        "name": "tema 5: Régimen sancionador, infracciones muy graves, graves y leves, retirada de armas"
+    },
+    {
+        "id": 6,
+        "name": "tema 6: Reparación de armas, prueba de armas, deposito de armas."
+    },
+    {
+        "id": 7,
+        "name": "tema 7: armas de colección, definiciones del artículo 2 del reglamento de armas y artículo 107, historia de las armas de fuego, calibres, munición y pólvora."
+    }
+]
