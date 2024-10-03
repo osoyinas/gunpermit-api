@@ -11,13 +11,13 @@ class Command(BaseCommand):
         # Export Topics
         topics = TopicModel.objects.all()
         topics_data = TopicSerializer(topics, many=True).data
-        with open('topics.json', 'w', encoding='utf-8') as topics_file:
+        with open('data/topics.json', 'w', encoding='utf-8') as topics_file:
             json.dump(topics_data, topics_file, ensure_ascii=False, indent=4)
 
         # Export Questions
         questions = QuestionModel.objects.all()
         questions_data = QuestionSerializer(questions, many=True).data
-        with open('questions.json', 'w', encoding='utf-8') as questions_file:
+        with open('data/questions.json', 'w', encoding='utf-8') as questions_file:
             json.dump(questions_data, questions_file,
                       ensure_ascii=False, indent=4)
 

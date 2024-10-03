@@ -4,30 +4,31 @@ from django.core.management.base import BaseCommand
 from questions_app.models import QuestionModel, TopicModel
 
 class Command(BaseCommand):
-    help = 'Load questions from JSON files into the database'
+    help = 'Load topics and questions from JSON files into the database'
 
     def handle(self, *args, **kwargs):
-        data_dir = 'data/'
-        json_files = [f for f in os.listdir(data_dir) if f.endswith('.json')]
+        # Load topics
+        topics_file_path = os.path.join('data', 'topics.json')
+        with open(topics_file_path, 'r', encoding='utf-8') as topics_file:
+            topics_data = json.load(topics_file)
+            for topic_data in topics_data:
+                TopicModel.objects.get_or_create(
+                    id=topic_data['id'],
+                    defaults={'name': topic_data['name']}
+                )
 
-        for json_file in json_files:
-            file_path = os.path.join(data_dir, json_file)
-            with open(file_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                
-                topic_name = data.get('topic', 'Default Topic')
-                topic, created = TopicModel.objects.get_or_create(name=topic_name)
+        # Load questions
+        questions_file_path = os.path.join('data', 'questions.json')
+        with open(questions_file_path, 'r', encoding='utf-8') as questions_file:
+            questions_data = json.load(questions_file)
+            for question_data in questions_data:
+                topic_id = question_data['topic']
+                topic, created = TopicModel.objects.get_or_create(id=topic_id)
+                answers = question_data['answers']
+                QuestionModel.objects.create(
+                    question=question_data['question'],
+                    answers=answers,
+                    topic=topic
+                )
 
-                for question_data in data.get('questions', []):
-                    question_text = question_data.get('question')
-                    options = question_data.get('options', [])
-                    answer = question_data.get('answer')
-                    answers = [{'answer': option, 'is_true': index == answer} for index, option in enumerate(options)]
-
-                    QuestionModel.objects.create(
-                        question=question_text,
-                        answers=answers,
-                        topic=topic
-                    )
-
-        self.stdout.write(self.style.SUCCESS('Successfully loaded questions from JSON files'))
+        self.stdout.write(self.style.SUCCESS('Successfully loaded topics and questions from JSON files'))
