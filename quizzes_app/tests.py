@@ -25,7 +25,7 @@ class QuizTests(TestCase):
         self.assertIsInstance(response.data['questions'], list)
 
     def test_create_quiz(self):
-        url = reverse('create-quiz')
+        url = reverse('list-create-quiz')
         data = {
             'title': 'Test Quiz',
             'description': 'Test Description',
@@ -40,6 +40,12 @@ class QuizTests(TestCase):
         self.assertIsInstance(response.data['questions'], list)
         self.assertEqual(len(response.data['questions']), 3)
 
+    def test_list_quizzes(self):
+        url = reverse('list-create-quiz')
+        response = self.client.get(url)
+        print(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
 
 class MakeQuizSerializerTest(TestCase):
     def setUp(self):
