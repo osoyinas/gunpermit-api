@@ -1,5 +1,5 @@
 from django.db import models
-
+from auth_app.models import CustomUser
 from questions_app.models import QuestionModel
 
 
@@ -29,3 +29,26 @@ class QuizQuestionModel(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['quiz', 'question'], name='unique_quiz_question')
         ]
+
+
+class QuizResultModel(models.Model):
+    quiz = models.ForeignKey(QuizModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    correct_answers = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.quiz.title} - {self.score}'
+    
+    @property
+    def score(self):
+        total_questions = self.quiz.questions.count()
+        if total_questions == 0:
+            return 0
+        return (self.correct_answers / total_questions) * 100
+    
+    @property
+    def passed(self):
+        return self.score >= 80 # 16/20 80% passing grade
+    
+    
