@@ -41,11 +41,13 @@ class QuizTests(TestCase):
         self.assertEqual(len(response.data['questions']), 3)
 
     def test_list_quizzes(self):
+        createQuizMock()
+        createQuizMock()
+        createQuizMock()
         url = reverse('list-create-quiz')
         response = self.client.get(url)
-        print(response.data)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 4)
 
 class MakeQuizSerializerTest(TestCase):
     def setUp(self):
