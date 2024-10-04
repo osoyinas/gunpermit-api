@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from auth_app.permissions import IsAdminOrReadOnly
 from quizzes_app.models import QuizModel
 from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, QuizCreateSerializer, QuizSerializer
+from drf_yasg.utils import swagger_auto_schema
 
 
 class RetrieveDestroyQuizAPIView(generics.RetrieveDestroyAPIView):
@@ -35,6 +36,10 @@ class MakeQuizAPIView(generics.GenericAPIView):
         quiz_id = self.kwargs.get('pk')
         return generics.get_object_or_404(QuizModel, pk=quiz_id)
 
+    @swagger_auto_schema(
+        request_body=MakeQuizSerializer,
+        responses={201: MakeQuizResponseSerializer, 400: 'Bad Request'}
+    )
     def post(self, request, *args, **kwargs):
         quiz = self.get_object()
         user = request.user
