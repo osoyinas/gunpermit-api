@@ -4,7 +4,7 @@ from .views import MakeQuizAPIView, RetrieveDestroyQuizAPIView, ListCreateQuizAp
 
 
 urlpatterns = [
-    path('', ListCreateQuizApiView.as_view(), name='create-quiz'),
+    path('', ListCreateQuizApiView.as_view(), name='list-create-quiz'),
     path('<int:pk>/', RetrieveDestroyQuizAPIView.as_view(),
          name='retrieve-destroy-quiz'),
     path('<int:pk>/make/', MakeQuizAPIView.as_view(), name='make-quiz'),
