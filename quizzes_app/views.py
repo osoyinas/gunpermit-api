@@ -2,7 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from auth_app.permissions import IsAdminOrReadOnly
 from quizzes_app.models import QuizModel
-from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, QuizSerializer, QuizSerializer
+from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizSerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -14,8 +14,8 @@ class RetrieveDestroyQuizAPIView(generics.RetrieveDestroyAPIView):
 
 class ListCreateQuizApiView(generics.ListCreateAPIView):
     queryset = QuizModel.objects.all()
-    serializer_class = QuizSerializer
-    permission_classes = [permissions.IsAdminUser]
+    serializer_class = CreateQuizSerializer
+    permission_classes = [IsAdminOrReadOnly,]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
