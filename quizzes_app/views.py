@@ -2,7 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from auth_app.permissions import IsAdminOrReadOnly
 from quizzes_app.models import QuizModel
-from quizzes_app.serializers import QuizCreateSerializer, QuizSerializer
+from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, QuizCreateSerializer, QuizSerializer
 
 
 class RetrieveDestroyQuizAPIView(generics.RetrieveDestroyAPIView):
@@ -25,3 +25,24 @@ class CreateQuizAPIView(generics.CreateAPIView):
         read_serializer = QuizSerializer(quiz)
         headers = self.get_success_headers(read_serializer.data)
         return Response(read_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+
+class MakeQuizAPIView(generics.GenericAPIView):
+    queryset = QuizModel.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        quiz_id = self.kwargs.get('pk')
+        return generics.get_object_or_404(QuizModel, pk=quiz_id)
+
+    def post(self, request, *args, **kwargs):
+        quiz = self.get_object()
+        user = request.user
+        serializer = MakeQuizSerializer(data=request.data, context={'quiz': quiz, 'user': user})
+        
+        if serializer.is_valid():
+            result = serializer.save()
+            response_serializer = MakeQuizResponseSerializer(result)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
