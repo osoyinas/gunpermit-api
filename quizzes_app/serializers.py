@@ -30,7 +30,7 @@ class QuizSerializer(serializers.ModelSerializer):
                   'questions']
 
 
-class QuizSerializer(serializers.ModelSerializer):
+class CreateQuizSerializer(serializers.ModelSerializer):
     questions = serializers.ListField(
         child=serializers.IntegerField()
     )
@@ -58,6 +58,16 @@ class QuizSerializer(serializers.ModelSerializer):
         return quiz
 
     def to_representation(self, instance):
+        attempt = QuizResultModel.objects.filter(quiz=instance).order_by('-created_at').first()
+        if attempt:
+            return {
+                'id': instance.id,
+                'title': instance.title,
+                'description': instance.description,
+                'questions': len(instance.questions.all()),
+                'score': attempt.score,
+                'passed': attempt.passed
+            }
         return {
             'id': instance.id,
             'title': instance.title,
@@ -67,16 +77,15 @@ class QuizSerializer(serializers.ModelSerializer):
 
 
 class AnswerItemSerializer(serializers.Serializer):
-    question = serializers.IntegerField() # question ID
-    answer = serializers.IntegerField() # index of the answer
-
+    question = serializers.IntegerField()  # question ID
+    answer = serializers.IntegerField()  # index of the answer
 
 
 class MakeQuizSerializer(serializers.Serializer):
     answers = serializers.ListField(
         child=AnswerItemSerializer()
     )
-    
+
     def validate(self, attrs):
         quiz = self.context.get('quiz')
         answers = attrs['answers']
@@ -90,7 +99,8 @@ class MakeQuizSerializer(serializers.Serializer):
             if not question:
                 raise ValidationError("Una de las preguntas no existe.")
             if len(list(question.answers)) <= answer['answer']:
-                raise ValidationError(f"No existe la respuesta en la pregunta ({question.question})")
+                raise ValidationError(
+                    f"No existe la respuesta en la pregunta ({question.question})")
         return super().validate(attrs)
 
     def create(self, validated_data):
@@ -120,6 +130,7 @@ class MakeQuizSerializer(serializers.Serializer):
             correct_answers=correct_answers
         )
         return result
+
 
 class MakeQuizResponseSerializer(serializers.Serializer):
     quiz = serializers.CharField(read_only=True)
