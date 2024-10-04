@@ -30,7 +30,7 @@ class QuizSerializer(serializers.ModelSerializer):
                   'questions']
 
 
-class QuizCreateSerializer(serializers.ModelSerializer):
+class QuizSerializer(serializers.ModelSerializer):
     questions = serializers.ListField(
         child=serializers.IntegerField()
     )
@@ -56,6 +56,14 @@ class QuizCreateSerializer(serializers.ModelSerializer):
             QuizQuestionModel.objects.create(quiz=quiz, question=question)
 
         return quiz
+
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'title': instance.title,
+            'description': instance.description,
+            'questions': len(instance.questions.all())
+        }
 
 
 class AnswerItemSerializer(serializers.Serializer):
