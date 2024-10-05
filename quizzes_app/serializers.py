@@ -8,11 +8,13 @@ from questions_app.models import QuestionModel, UserQuestionAttemptModel
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
-    question = QuestionSerializer()
+    question = serializers.CharField(source='question.question')
+    answers = serializers.JSONField(source='question.answers')
 
     class Meta:
         model = QuizQuestionModel
-        fields = ['question']
+        fields = ['id', 'question', 'answers']
+
 
 
 class QuizSerializer(serializers.ModelSerializer):
@@ -58,7 +60,8 @@ class CreateQuizSerializer(serializers.ModelSerializer):
         return quiz
 
     def to_representation(self, instance):
-        attempt = QuizResultModel.objects.filter(quiz=instance).order_by('-created_at').first()
+        attempt = QuizResultModel.objects.filter(
+            quiz=instance).order_by('-created_at').first()
         if attempt:
             return {
                 'id': instance.id,
