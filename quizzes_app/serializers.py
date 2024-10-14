@@ -16,7 +16,6 @@ class QuizQuestionSerializer(serializers.ModelSerializer):
         fields = ['id', 'question', 'answers']
 
 
-
 class QuizSerializer(serializers.ModelSerializer):
     questions = QuizQuestionSerializer(
         source='quizquestionmodel_set',
@@ -121,7 +120,7 @@ class MakeQuizSerializer(serializers.Serializer):
             attempt, created = UserQuestionAttemptModel.objects.update_or_create(
                 user=user,
                 question=question,
-                answer=answer_index
+                defaults={'answer': answer_index}
             )
             if attempt.is_correct:
                 correct_answers += 1
@@ -145,7 +144,6 @@ class MakeQuizResponseSerializer(serializers.Serializer):
     def to_representation(self, instance):
         return {
             'quiz': instance.quiz.title,
-            'user': instance.user.username,
             'correct_answers': instance.correct_answers,
             'score': instance.score,
             'passed': instance.passed,
