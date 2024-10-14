@@ -8,6 +8,7 @@ from questions_app.models import QuestionModel, UserQuestionAttemptModel
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='question.id')
     question = serializers.CharField(source='question.question')
     answers = serializers.JSONField(source='question.answers')
 
