@@ -148,4 +148,5 @@ class MakeQuizResponseSerializer(serializers.Serializer):
             'correct_answers': instance.correct_answers,
             'score': instance.score,
             'passed': instance.passed,
+            'total_questions': instance.quiz.questions.count()
         }
