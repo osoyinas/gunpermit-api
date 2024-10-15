@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6uk%u)t+@g^uu*7*@b5&-#u^-*0nbd19x@-7gzmh%t%cfx!&cz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -170,3 +172,9 @@ CORS_ALLOW_CREDENTIALS = True  # Permite el uso de credenciales (cookies)
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Dominio de tu frontend
 ]
+
+#Load email settings
+from .email_settings import *
+
+if not DEBUG:
+    from .production_settings import *
