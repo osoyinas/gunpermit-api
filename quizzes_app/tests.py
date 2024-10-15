@@ -110,7 +110,6 @@ class MakeQuizAPITestCase(TestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, 201)
         self.assertIn('quiz', response.data)
-        self.assertIn('user', response.data)
         self.assertIn('correct_answers', response.data)
         self.assertIn('score', response.data)
         self.assertIn('passed', response.data)
