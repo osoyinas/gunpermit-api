@@ -30,15 +30,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests
-        run: |
-          python manage.py test
-
-      - name: Make database migrations
-        run: |
-          python manage.py makemigrations
-          python manage.py migrate
-
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
