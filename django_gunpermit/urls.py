@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from .health_check import health_check
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,4 +38,6 @@ urlpatterns = [
     path('api/v1/pdfs/', include('pdf_files_app.urls')),
     path('api/v1/auth/', include('auth_app.urls')),
     path('api/v1/quizzes/', include('quizzes_app.urls')),
+    path('health/', health_check, name='health-check'),
+
 ]
