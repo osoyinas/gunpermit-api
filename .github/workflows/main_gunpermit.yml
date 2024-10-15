@@ -26,23 +26,26 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+          pip install -r requirements.txt
 
       - name: Run migrations
         run: |
           source venv/bin/activate
           python manage.py makemigrations
           python manage.py migrate
+        shell: bash
 
       - name: Run tests
         run: |
           source venv/bin/activate
           python manage.py test
+        shell: bash
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: |
+          source venv/bin/activate
+          zip release.zip ./* -r
+        shell: bash
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
