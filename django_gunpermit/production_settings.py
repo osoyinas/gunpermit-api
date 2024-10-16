@@ -1,21 +1,17 @@
 
 
-from .email_settings import *
-import os
-from pathlib import Path
 from decouple import config
 
-from django_gunpermit.settings import BASE_DIR
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
+# # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [
                        s.strip() for s in v.split(',')])
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+print(ALLOWED_HOSTS)
+# # Database
+# # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -40,6 +36,3 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-
-
-# Load email settings
