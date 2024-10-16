@@ -79,5 +79,4 @@ class QuestionTests(TestCase):
                 ]}
 
         response = self.client.patch(url, data=data, format='json')
-        print(response.data)
         self.assertEqual(response.status_code, 200)
