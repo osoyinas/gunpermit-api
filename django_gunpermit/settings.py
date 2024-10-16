@@ -175,6 +175,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Dominio de tu frontend
 ]
 
+ALLOWED_HOSTS = ['*']
+
 #Load email settings
 from .email_settings import *
 
