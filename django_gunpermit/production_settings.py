@@ -41,6 +41,10 @@ DATABASES = {
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=lambda v: [
                               s.strip() for s in v.split(',')])
 
+# CSRF CONFIG
+CSRF_TRUSTED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=lambda v: [
+                              s.strip() for s in v.split(',')])
+
 
 STORAGES = {
     'default': {
