@@ -9,8 +9,6 @@ SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [
                        s.strip() for s in v.split(',')])
 
-print(ALLOWED_HOSTS)
-
 # Update middleware to include WhiteNoiseMiddleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
