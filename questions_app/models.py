@@ -4,7 +4,7 @@ from auth_app.models import CustomUser
 
 
 class TopicModel(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name + " (ID: " + str(self.id) + ")"
