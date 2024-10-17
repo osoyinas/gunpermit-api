@@ -1,11 +1,15 @@
 from datetime import timezone
 from rest_framework import generics, parsers
 
-from assessments_app.models import AssessmentModel
-from assessments_app.serializers import AssessmentSerializer
+from assessments_app.models import AssessmentModel, PlaceModel
+from assessments_app.serializers import AssessmentSerializer, PlaceSerializer
 from auth_app.permissions import IsAdminOrReadOnly
 
-# Create your views here.
+class ListCreatePlace (generics.ListCreateAPIView):
+    queryset = PlaceModel.objects.all()
+    serializer_class = PlaceSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
 class ListCreateAssessment(generics.ListCreateAPIView):
     queryset = AssessmentModel.objects.all()
     serializer_class = AssessmentSerializer

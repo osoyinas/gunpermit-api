@@ -4,7 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from assessments_app.models import PlaceModel, AssessmentModel
-from assessments_app.serializers import AssessmentSerializer
+from assessments_app.serializers import AssessmentSerializer, PlaceSerializer
 from datetime import datetime, timedelta
 
 from auth_app.mocks import createUserStaffMock, getAuthenticatedClient
@@ -33,7 +33,6 @@ class AssessmentTests(APITestCase):
         self.staff_user = createUserStaffMock(
             email='staff@gmail.com', username='staff')
         self.client = getAuthenticatedClient(self.staff_user)
-
 
     def test_list_create_assessment(self):
         url = reverse('list_create_assessment')
@@ -76,4 +75,17 @@ class AssessmentTests(APITestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], self.assessment1.title)
-        print(response.data)
+
+    def test_list_create_place(self):
+        url = reverse('list_create_place')
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+
+        data = {
+            "name": "New Place",
+            "province": "New Province"
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(PlaceModel.objects.count(), 2)
