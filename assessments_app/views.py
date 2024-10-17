@@ -1,6 +1,5 @@
-from datetime import timezone
-from rest_framework import generics, parsers
-
+from django.utils import timezone
+from rest_framework import generics
 from assessments_app.models import AssessmentModel, PlaceModel
 from assessments_app.serializers import AssessmentSerializer, PlaceSerializer
 from auth_app.permissions import IsAdminOrReadOnly
