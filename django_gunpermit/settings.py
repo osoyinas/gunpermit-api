@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'auth_app',
     'pdf_files_app',
     'quizzes_app',
+    'assessments_app',
 ]
 
 MIDDLEWARE = [
