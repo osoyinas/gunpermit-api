@@ -38,6 +38,7 @@ urlpatterns = [
     path('api/v1/pdfs/', include('pdf_files_app.urls')),
     path('api/v1/auth/', include('auth_app.urls')),
     path('api/v1/quizzes/', include('quizzes_app.urls')),
+    path('api/v1/assessments/', include('assessments_app.urls')),
     path('health/', health_check, name='health-check'),
 
 ]
