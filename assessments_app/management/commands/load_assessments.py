@@ -18,13 +18,11 @@ class Command(BaseCommand):
             place, created = PlaceModel.objects.get_or_create(name=place_name)
 
             for date_str in convocatoria['dates']:
-                # Convertir la fecha al formato YYYY-MM-DD
-                date = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ').date()
-                AssessmentModel.objects.create(
-                    title=f"Assessment for {place_name}",
-                    place=place,
-                    date=date
-                )
+                try:
+                    date = datetime.strptime(date_str, '%Y-%m-%d')
+                except ValueError as e:
+                    self.stderr.write(f"Error parsing date {date_str}: {e}")
+                    continue
 
-        self.stdout.write(self.style.SUCCESS(
-            'Successfully loaded assessments'))
+                # Assuming you need to create an AssessmentModel instance
+                AssessmentModel.objects.create(place=place, date=date)
