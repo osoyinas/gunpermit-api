@@ -39,7 +39,7 @@ urlpatterns = [
     path('api/v1/auth/', include('auth_app.urls')),
     path('api/v1/quizzes/', include('quizzes_app.urls')),
     path('api/v1/', include('assessments_app.urls')),
-    path('metrics/', include('metrics_app.urls')),
+    path('api/v1/metrics/', include('metrics_app.urls')),
     path('health/', health_check, name='health-check'),
 
 ]
