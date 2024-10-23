@@ -48,6 +48,10 @@ class QuizResultModel(models.Model):
         return (self.correct_answers / total_questions) * 100
     
     @property
+    def score_str(self):
+        return f'{self.correct_answers}/{self.quiz.questions.count()}'
+
+    @property
     def passed(self):
         return self.score >= 80 # 16/20 80% passing grade
     
