@@ -36,13 +36,12 @@ class ListUserResultsTests(APITestCase):
         response = self.client.get(self.url, {'size': 5})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Custom page size is 5
-        print(json.dumps(response.data, indent=4))
         self.assertEqual(len(response.data['results']), 5)
         self.assertIn('next', response.data)
         self.assertIn('previous', response.data)
 
     def test_list_user_results_invalid_pagination(self):
-        response = self.client.get(self.url, {'size': 15})
+        response = self.client.get(self.url, {'size': 120})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Page size should default to 10
         self.assertEqual(len(response.data['results']), 10)
