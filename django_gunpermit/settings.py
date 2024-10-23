@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from .email_settings import *
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'pdf_files_app',
     'quizzes_app',
     'assessments_app',
+    'metrics_app'
 ]
 
 MIDDLEWARE = [
@@ -166,7 +168,6 @@ AUTHENTICATION_BACKENDS = ['auth_app.backends.EmailBackend']
 LANGUAGE_CODE = "es-es"
 
 
-
 # CORS CONFIG
 
 CORS_ALLOW_CREDENTIALS = True  # Permite el uso de credenciales (cookies)
@@ -177,8 +178,7 @@ CORS_ALLOWED_ORIGINS = [
 
 ALLOWED_HOSTS = ['*']
 
-#Load email settings
-from .email_settings import *
+# Load email settings
 
 if not DEBUG:
     from .production_settings import *

@@ -17,7 +17,7 @@ def createTopicMock(name: str = 'Topic 1'):
 
 def createTopicWithQuestionsMock():
     topic = createTopicMock()
-    createQuestionMock(topic)
+    createQuestionMock(topic, 'Question 1')
     createQuestionMock(topic, 'Question 2')
     createQuestionMock(topic, 'Question 3')
     return topic
