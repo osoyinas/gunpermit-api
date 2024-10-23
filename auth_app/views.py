@@ -13,13 +13,14 @@ from rest_framework_simplejwt.exceptions import TokenError
 
 
 class LoginView(APIView):
+    authentication_classes = []
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
 
         if serializer.is_valid():
             user = serializer.validated_data
             tokens = serializer.get_tokens(user)
-            
+
             response_data = {
                 'access': tokens['access'],
             }
@@ -31,6 +32,7 @@ class LoginView(APIView):
 
 class RegisterUserView(APIView):
     queryset = get_user_model().objects.all()
+    authentication_classes = []
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
