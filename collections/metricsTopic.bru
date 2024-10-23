@@ -1,0 +1,15 @@
+meta {
+  name: metricsTopic
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url}}metrics/results/topics/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NjkyOTk4LCJpYXQiOjE3Mjk2OTI2OTgsImp0aSI6ImU2MWM5YzAxMTJlODQxNDhhNjczZWI5NTc3YzhiZTNhIiwidXNlcl9pZCI6Mn0.VYFsuVpPr37mAj-tQyR6l5I-NP8evHTKiym3AN8P5fU
+}
