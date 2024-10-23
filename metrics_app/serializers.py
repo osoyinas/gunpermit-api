@@ -5,9 +5,13 @@ from rest_framework.fields import CurrentUserDefault
 
 
 class ResultsSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(source='created_at', read_only=True)
+    score = serializers.CharField(source='score_str', read_only=True)
+    mark = serializers.IntegerField(source='score', read_only=True)
+
     class Meta:
         model = QuizResultModel
-        fields = ('id', 'created_at', 'score', 'passed')
+        fields = ('id', 'date', 'score', 'mark', 'passed')
 
 
 class TopicResultSerializer(serializers.Serializer):
