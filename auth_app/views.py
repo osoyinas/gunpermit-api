@@ -10,7 +10,12 @@ from rest_framework import status
 from .serializers import LoginSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import update_session_auth_hash
+from .serializers import ChangePasswordSerializer
 
 class LoginView(APIView):
     authentication_classes = []
@@ -95,6 +100,26 @@ class CurrentUserView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
+
+class ChangePasswordView(generics.CreateAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            user.set_password(serializer.data.get('new_password'))
+            user.save()
+            logout_user(response, refresh_token)
+            return Response({'message': 'Password changed successfully.'})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+def logout_user(response: Response, refresh_token: str):
+    delete_refresh_token_from_cookies(response)
+    RefreshToken(refresh_token)
+    return response
 
 def set_refresh_token_in_cookies(response: Response, refresh_token: str):
     response.set_cookie(
