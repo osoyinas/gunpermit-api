@@ -107,16 +107,19 @@ class ChangePasswordView(generics.CreateAPIView):
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
+        refresh_token = request.COOKIES.get('refreshToken')
         if serializer.is_valid():
             user = request.user
             user.set_password(serializer.data.get('new_password'))
+            response = Response({'detail': 'Password changed successfully.'}, status=status.HTTP_200_OK)
             user.save()
-            logout_user(response, refresh_token)
-            return Response({'message': 'Password changed successfully.'})
+            response = logout_user(response, refresh_token)
+            return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 def logout_user(response: Response, refresh_token: str):
+    print("Logging out", refresh_token)
     delete_refresh_token_from_cookies(response)
     RefreshToken(refresh_token)
     return response
