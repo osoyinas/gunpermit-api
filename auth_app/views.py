@@ -2,7 +2,7 @@ from datetime import timedelta
 import datetime
 from django.http import JsonResponse
 from rest_framework import generics, permissions
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -88,8 +88,8 @@ class LogoutView(APIView):
             return Response({"detail": "Refresh token not provided."}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CurrentUserView(generics.RetrieveAPIView):
-    serializer_class = RegisterSerializer
+class CurrentUserView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
