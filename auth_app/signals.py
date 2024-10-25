@@ -7,6 +7,8 @@ from django_rest_passwordreset.signals import reset_password_token_created
 from django_gunpermit.settings import WEBAPP_URL 
 from django_gunpermit.settings import EMAIL_HOST 
 
+RESET_PASSWORD_URL = f'{WEBAPP_URL}/auth/reset-password'
+
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     """
@@ -27,7 +29,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         'first_name': user.first_name,
         'last_name': user.last_name,
         'reset_password_url': "{}?token={}".format(
-            WEBAPP_URL,
+            RESET_PASSWORD_URL,
             reset_password_token.key)
     }
 
