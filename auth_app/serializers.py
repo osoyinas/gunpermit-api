@@ -90,3 +90,14 @@ class RegisterSerializer(serializers.ModelSerializer):
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }
+    
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "email"
+        )
+        read_only_fields = ("id", "email")
