@@ -80,17 +80,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         validated_data["username"] = generated_username
 
         del validated_data["repeat_password"]
-        
+
         user = get_user_model().objects.create_user(**validated_data)
         return user
-    
+
     def get_tokens(self, user):
         refresh = RefreshToken.for_user(user)
         return {
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }
-    
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
@@ -108,9 +109,15 @@ class ChangePasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(required=True)
 
     def validate(self, attrs):
+        if attrs["old_password"] == attrs["new_password"]:
+            raise serializers.ValidationError(
+                {"new_password": "La nueva contraseña no puede ser igual a la anterior."}
+            )
         if not self.context["request"].user.check_password(attrs["old_password"]):
-            raise serializers.ValidationError({"old_password": "Contraseña incorrecta."})
+            raise serializers.ValidationError(
+                {"old_password": "Contraseña incorrecta."})
         return super().validate(attrs)
+
 
 class ResetPasswordEmailSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
