@@ -4,7 +4,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
-
+from django_gunpermit.settings import WEBAPP_URL 
+from django_gunpermit.settings import EMAIL_HOST 
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
@@ -19,13 +20,14 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     :return:
     """
     # send an e-mail to the user
+    user = reset_password_token.user
+    print("first", user.first_name)
+    print("last", user.last_name)
     context = {
-        'current_user': reset_password_token.user,
-        'username': reset_password_token.user.username,
-        'email': reset_password_token.user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
         'reset_password_url': "{}?token={}".format(
-            instance.request.build_absolute_uri(
-                reverse('password_reset:reset-password-confirm')),
+            WEBAPP_URL,
             reset_password_token.key)
     }
 
@@ -37,11 +39,11 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     msg = EmailMultiAlternatives(
         # title:
-        "Password Reset for {title}".format(title="Your Website Title"),
+        "Password Reset for {title}".format(title="Gun Permit"),
         # message:
         email_plaintext_message,
         # from:
-        "noreply@yourdomain.com",
+        EMAIL_HOST,
         # to:
         [reset_password_token.user.email]
     )
