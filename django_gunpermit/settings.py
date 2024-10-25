@@ -45,11 +45,13 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'questions_app',
-    'auth_app',
+    'auth_app.apps.AuthAppConfig',
     'pdf_files_app',
     'quizzes_app',
     'assessments_app',
-    'metrics_app'
+    'metrics_app',
+    'django_rest_passwordreset'
+
 ]
 
 MIDDLEWARE = [
@@ -68,7 +70,7 @@ ROOT_URLCONF = 'django_gunpermit.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -179,6 +181,7 @@ CORS_ALLOWED_ORIGINS = [
 ALLOWED_HOSTS = ['*']
 
 # Load email settings
+from .email_settings import *
 
 if not DEBUG:
     from .production_settings import *
