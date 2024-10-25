@@ -183,5 +183,7 @@ ALLOWED_HOSTS = ['*']
 # Load email settings
 from .email_settings import *
 
+WEBAPP_URL = config('WEBAPP_URL', default='http://localhost:3000')
+
 if not DEBUG:
     from .production_settings import *
