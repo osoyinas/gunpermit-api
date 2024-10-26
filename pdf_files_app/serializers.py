@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from .models import PDFFile
-from questions_app.serializers import TopicSerializer
+from questions_app.serializers import TopicSerializerWithQuestions
 from questions_app.models import TopicModel, QuestionModel
 from .pdf_scrapper import get_text_from, extract_questions_and_answers
 
 class PDFFileSerializer(serializers.ModelSerializer):
-    topic = TopicSerializer(read_only=True)
+    topic = TopicSerializerWithQuestions(read_only=True)
     name = serializers.CharField(max_length=100, read_only=True)
     class Meta:
         model = PDFFile

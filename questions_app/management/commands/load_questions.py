@@ -3,6 +3,7 @@ import json
 from django.core.management.base import BaseCommand
 from questions_app.models import QuestionModel, TopicModel
 
+
 class Command(BaseCommand):
     help = 'Load topics and questions from JSON files into the database'
 
@@ -14,7 +15,8 @@ class Command(BaseCommand):
             for topic_data in topics_data:
                 TopicModel.objects.get_or_create(
                     id=topic_data['id'],
-                    defaults={'name': topic_data['name']}
+                    defaults={
+                        'title': topic_data['title'], 'description': topic_data['description']}
                 )
 
         # Load questions
@@ -31,4 +33,5 @@ class Command(BaseCommand):
                     topic=topic
                 )
 
-        self.stdout.write(self.style.SUCCESS('Successfully loaded topics and questions from JSON files'))
+        self.stdout.write(self.style.SUCCESS(
+            'Successfully loaded topics and questions from JSON files'))

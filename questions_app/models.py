@@ -4,10 +4,11 @@ from auth_app.models import CustomUser
 
 
 class TopicModel(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    description = models.TextField(max_length=500)
 
     def __str__(self):
-        return self.name + " (ID: " + str(self.id) + ")"
+        return self.title
 
 
 ANSWERS_STRUCTURE = [{'answer': str, 'is_true': bool}] * 3
@@ -43,19 +44,22 @@ class QuestionModel(models.Model):
 
 
 class UserQuestionAttemptModel(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="question_attempts")
-    question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE, related_name="user_attempts")
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="question_attempts")
+    question = models.ForeignKey(
+        QuestionModel, on_delete=models.CASCADE, related_name="user_attempts")
     answer = models.IntegerField()
+
     class Meta:
         unique_together = ('user', 'question')
         constraints = [
-            models.UniqueConstraint(fields=['user', 'question'], name='unique_user_question')
+            models.UniqueConstraint(
+                fields=['user', 'question'], name='unique_user_question')
         ]
-        
 
     def __str__(self):
         return f"{self.user.username} - {self.question.id} - {self.answer}"
-    
+
     def clean_answer(self):
         if self.answer < 0 or self.answer >= len(self.question.answers):
             raise ValidationError("El índice de respuesta no es válido.")
@@ -63,4 +67,3 @@ class UserQuestionAttemptModel(models.Model):
     @property
     def is_correct(self):
         return self.question.answers[self.answer]['is_true']
-        
