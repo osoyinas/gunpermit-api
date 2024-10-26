@@ -48,7 +48,7 @@ class ListTopicResults (generics.ListAPIView):
                     correct_attempts += 1
             results.append(
                 {
-                    'topic': str(topic.name),
+                    'topic': str(topic.title),
                     'mark': correct_attempts,
                     'full_mark': total_questions_for_topic
                 }

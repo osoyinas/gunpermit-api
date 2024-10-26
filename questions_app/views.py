@@ -2,18 +2,18 @@ from rest_framework import generics, permissions
 
 from auth_app.permissions import IsAdminOrReadOnly
 from .models import TopicModel, QuestionModel
-from .serializers import TopicSerializer, QuestionSerializer
+from .serializers import TopicSerializerWithQuestions, QuestionSerializer
 
 
 class ListCreateTopicsView(generics.ListCreateAPIView):
     queryset = TopicModel.objects.all()
-    serializer_class = TopicSerializer
+    serializer_class = TopicSerializerWithQuestions
     permission_classes = [IsAdminOrReadOnly, ]
 
 
 class RetrieveUpdateDestroyTopicsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TopicModel.objects.all()
-    serializer_class = TopicSerializer
+    serializer_class = TopicSerializerWithQuestions
     permission_classes = [IsAdminOrReadOnly]
 
 

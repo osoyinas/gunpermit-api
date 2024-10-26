@@ -74,7 +74,7 @@ class MakeQuizAPITestCase(TestCase):
         self.user = createUserMock()
         self.client = getAuthenticatedClient(self.user)
 
-        self.topic = TopicModel.objects.create(name='Sample Topic')
+        self.topic = TopicModel.objects.create(title='Sample Topic', description='Sample Description')
         self.quiz = QuizModel.objects.create(title='Sample Quiz')
 
         self.questions = [

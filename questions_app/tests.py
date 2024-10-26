@@ -11,8 +11,8 @@ class TopicTests(TestCase):
         self.staff_user = createUserStaffMock(
             email='staff@gmail.com', username='staff')
         self.client = getAuthenticatedClient(self.staff_user)
-        self.topicA = TopicModel.objects.create(name='Topic 1')
-        self.topicB = TopicModel.objects.create(name='Topic 2')
+        self.topicA = TopicModel.objects.create(title='Topic 1', description='Description 1')
+        self.topicB = TopicModel.objects.create(title='Topic 2', description='Description 2')
 
     def test_list_create_topics_view(self):
         response = self.client.get(reverse('list_create_topics'))
@@ -23,7 +23,7 @@ class TopicTests(TestCase):
         response = self.client.get(
             reverse('retrieve_topics', kwargs={'pk': self.topicA.id}))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['name'], 'Topic 1')
+        self.assertEqual(response.data['title'], 'Topic 1')
 
 
 class QuestionTests(TestCase):
@@ -31,7 +31,7 @@ class QuestionTests(TestCase):
         self.staff_user = createUserStaffMock(
             email='staff@gmail.com', username='staff')
         self.client = getAuthenticatedClient(self.staff_user)
-        self.topic = TopicModel.objects.create(name='Topic 1')
+        self.topic = TopicModel.objects.create(title='Topic 1', description='Description 1')
         self.question = QuestionModel.objects.create(question='Question 1',
                                                      answers=[
                                                          {'answer': 'Respuesta 1',

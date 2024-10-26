@@ -12,7 +12,7 @@ def createQuestionMock(topic: TopicModel, question: str = 'Question 1'):
 
 
 def createTopicMock(name: str = 'Topic 1'):
-    return TopicModel.objects.create(name=name)
+    return TopicModel.objects.create(title=name, description='a')
 
 
 def createTopicWithQuestionsMock():
