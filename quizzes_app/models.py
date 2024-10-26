@@ -3,6 +3,14 @@ from auth_app.models import CustomUser
 from questions_app.models import QuestionModel
 
 
+class QuizCategoryModel(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    tag = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return f'#{self.tag}'
+
 class QuizModel(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
@@ -14,6 +22,7 @@ class QuizModel(models.Model):
         related_name='quizzes',
         related_query_name='quiz'
     )
+    category = models.ForeignKey(QuizCategoryModel, related_name='quizzes', on_delete=models.CASCADE, null=True, blank=True )
 
     def __str__(self):
         return self.title
@@ -54,5 +63,7 @@ class QuizResultModel(models.Model):
     @property
     def passed(self):
         return self.score >= 80 # 16/20 80% passing grade
+
+
     
     

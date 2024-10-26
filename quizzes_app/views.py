@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from auth_app.permissions import IsAdminOrReadOnly
-from quizzes_app.models import QuizModel
-from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizSerializer
+from quizzes_app.models import QuizCategoryModel, QuizModel
+from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizCategorySerializer, QuizSerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -21,12 +21,12 @@ class ListCreateQuizApiView(generics.ListCreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         quiz = serializer.save()
-        
+
         # Use the QuizSerializer to return the quiz with its questions
         read_serializer = QuizSerializer(quiz)
         headers = self.get_success_headers(read_serializer.data)
         return Response(read_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    
+
 
 class MakeQuizAPIView(generics.GenericAPIView):
     queryset = QuizModel.objects.all()
@@ -43,11 +43,18 @@ class MakeQuizAPIView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         quiz = self.get_object()
         user = request.user
-        serializer = MakeQuizSerializer(data=request.data, context={'quiz': quiz, 'user': user})
-        
+        serializer = MakeQuizSerializer(data=request.data, context={
+                                        'quiz': quiz, 'user': user})
+
         if serializer.is_valid():
             result = serializer.save()
             response_serializer = MakeQuizResponseSerializer(result)
             return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ListQuizCategoriesView(generics.ListAPIView):
+    queryset = QuizCategoryModel.objects.all()
+    serializer_class = QuizCategorySerializer
+    permission_classes = [permissions.IsAuthenticated]

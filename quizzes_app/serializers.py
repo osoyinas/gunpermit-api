@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from questions_app.serializers import QuestionSerializer
 from quizzes_app.mocks import createQuizMock
-from .models import QuizModel, QuizQuestionModel, QuizResultModel
+from .models import QuizCategoryModel, QuizModel, QuizQuestionModel, QuizResultModel
 from questions_app.models import QuestionModel, UserQuestionAttemptModel
 
 
@@ -31,6 +31,11 @@ class QuizSerializer(serializers.ModelSerializer):
                   'updated_at',
                   'questions']
 
+
+class QuizCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizCategoryModel
+        fields = "__all__"
 
 class CreateQuizSerializer(serializers.ModelSerializer):
     questions = serializers.ListField(
