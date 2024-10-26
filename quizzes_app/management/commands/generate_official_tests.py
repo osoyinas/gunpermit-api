@@ -3,7 +3,7 @@ import os
 import json
 from django.core.management.base import BaseCommand
 from questions_app.models import QuestionModel
-from quizzes_app.models import QuizModel, QuizQuestionModel
+from quizzes_app.models import QuizCategoryModel, QuizModel, QuizQuestionModel
 
 
 class Command(BaseCommand):
@@ -21,8 +21,9 @@ class Command(BaseCommand):
         with open(schema_file_path, 'r', encoding='utf-8') as schema_file:
             schema_data = json.load(schema_file)
 
+        oficial_category = QuizCategoryModel.objects.get(tag='oficial')
         for test_num in range(num_tests):
-            quiz = QuizModel.objects.create(title=f'Test {test_num + 1}')
+            quiz = QuizModel.objects.create(title=f'Test {test_num + 1}', number=test_num + 1, category=oficial_category)
             order = 0
 
             for item in schema_data:
