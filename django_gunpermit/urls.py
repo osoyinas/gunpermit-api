@@ -35,7 +35,6 @@ urlpatterns = [
          name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
     path('api/v1/', include('questions_app.urls')),
-    path('api/v1/pdfs/', include('pdf_files_app.urls')),
     path('api/v1/auth/', include('auth_app.urls')),
     path('api/v1/quizzes/', include('quizzes_app.urls')),
     path('api/v1/', include('assessments_app.urls')),

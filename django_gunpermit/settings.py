@@ -46,12 +46,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'questions_app',
     'auth_app.apps.AuthAppConfig',
-    'pdf_files_app',
     'quizzes_app',
     'assessments_app',
     'metrics_app',
     'django_rest_passwordreset'
-
 ]
 
 MIDDLEWARE = [
