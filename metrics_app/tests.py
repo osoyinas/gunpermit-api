@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from auth_app.mocks import createUserMock, getAuthenticatedClient
 from quizzes_app.mocks import createQuizMock
-from quizzes_app.models import QuizResultModel
+from tracking_app.models import QuizResultModel
 import random
 import json
 

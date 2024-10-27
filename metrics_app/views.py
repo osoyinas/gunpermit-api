@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from questions_app.models import TopicModel, QuestionModel
-from questions_app.models import UserQuestionAttemptModel
+from tracking_app.models import UserQuestionAttemptModel
 from metrics_app.serializers import ResultsSerializer, TopicResultsListSerializer
 from metrics_app.pagination import CustomPagination
 

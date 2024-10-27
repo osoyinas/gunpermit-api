@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from quizzes_app.models import QuizResultModel
-from rest_framework.fields import CurrentUserDefault
+from tracking_app.models import QuizResultModel
 
 
 class ResultsSerializer(serializers.ModelSerializer):

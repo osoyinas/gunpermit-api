@@ -3,8 +3,9 @@ from rest_framework import serializers
 
 from questions_app.serializers import QuestionSerializer
 from quizzes_app.mocks import createQuizMock
-from .models import QuizCategoryModel, QuizModel, QuizQuestionModel, QuizResultModel
-from questions_app.models import QuestionModel, UserQuestionAttemptModel
+from .models import QuizCategoryModel, QuizModel, QuizQuestionModel
+from questions_app.models import QuestionModel
+from tracking_app.models import UserQuestionAttemptModel, QuizResultModel
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):

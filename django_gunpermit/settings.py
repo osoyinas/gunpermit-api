@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'quizzes_app',
     'assessments_app',
     'metrics_app',
+    'tracking_app',
     'django_rest_passwordreset'
 ]
 
