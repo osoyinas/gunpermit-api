@@ -17,6 +17,13 @@ class ListCreateQuizApiView(generics.ListCreateAPIView):
     serializer_class = CreateQuizSerializer
     permission_classes = [IsAdminOrReadOnly,]
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_tag = self.request.query_params.get('category', None)
+        if category_tag is not None:
+            queryset = queryset.filter(category__tag=category_tag)
+        return queryset
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
