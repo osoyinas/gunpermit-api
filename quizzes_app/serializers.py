@@ -117,26 +117,14 @@ class MakeQuizSerializer(serializers.Serializer):
         user = self.context.get('user')
         user_answers = validated_data['answers']
 
-        correct_answers = 0
-
-        # Check correct answers and save them
-        for user_answer in user_answers:
-            question_id = user_answer['question']
-            question = QuestionModel.objects.get(id=question_id)
-            answer_index = user_answer['answer']
-            attempt, created = UserQuestionAttemptModel.objects.update_or_create(
-                user=user,
-                question=question,
-                defaults={'answer': answer_index}
-            )
-            if attempt.is_correct:
-                correct_answers += 1
-
+        formated_answers = list(map(
+            lambda answer: answer['answer'], user_answers))
+        
         # Create QuizResultModel instance
         result = QuizResultModel.objects.create(
             quiz=quiz,
             user=user,
-            correct_answers=correct_answers
+            answers=formated_answers
         )
         return result
 

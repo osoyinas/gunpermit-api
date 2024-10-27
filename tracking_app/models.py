@@ -11,11 +11,32 @@ from quizzes_app.models import QuizModel
 class QuizResultModel(models.Model):
     quiz = models.ForeignKey(QuizModel, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    correct_answers = models.IntegerField()
+    answers = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.quiz.title} - {self.score}'
+
+    def clean_answers(self):
+        if not isinstance(self.answers, list):
+            raise ValidationError("El campo 'answers' debe ser una lista.")
+
+        if len(self.answers) != self.quiz.questions.count():
+            raise ValidationError(
+                f"El campo 'answers' debe tener exactamente {self.quiz.questions.count()} elementos.")
+
+        for answer in self.answers:
+            if not isinstance(answer, int):
+                raise ValidationError(
+                    "Cada elemento en 'answers' debe ser un entero.")
+
+    @property
+    def correct_answers(self):
+        correct_answers = 0
+        for index, question in enumerate(self.quiz.questions.all()):
+            if index == question.correct_answer_index:
+                correct_answers += 1
+        return correct_answers
 
     @property
     def score(self):

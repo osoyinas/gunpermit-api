@@ -22,8 +22,8 @@ class ListUserResultsTests(APITestCase):
             QuizResultModel.objects.create(
                 quiz=self.quiz,
                 user=self.user,
-                correct_answers=random.randint(0, 3))
-
+                answers = [random.choice([0, 2]) for _ in range(3)]
+            )
     def test_list_user_results_default_pagination(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

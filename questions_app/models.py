@@ -40,3 +40,10 @@ class QuestionModel(models.Model):
                 if not isinstance(received_answer[key], expected_type):
                     raise ValidationError(
                         f"El valor de '{key}' en 'answers' debe ser de tipo {expected_type}.")
+    
+    @property
+    def correct_answer_index(self):
+        for index, answer in enumerate(self.answers):
+            if answer['is_true']:
+                return index
+        return None
