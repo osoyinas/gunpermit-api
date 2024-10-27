@@ -116,6 +116,17 @@ class ChangePasswordView(generics.CreateAPIView):
             response = logout_user(response, refresh_token)
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteAccountView(generics.DestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request):
+        user = request.user
+        refresh_token = request.COOKIES.get('refreshToken')
+        user.delete()
+        response = Response({'detail': 'Account deleted successfully.'}, status=status.HTTP_200_OK)
+        response = logout_user(response, refresh_token)
+        return response
     
 
 def logout_user(response: Response, refresh_token: str):
