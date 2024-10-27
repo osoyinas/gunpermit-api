@@ -11,7 +11,7 @@ from quizzes_app.models import QuizModel
 class QuizResultModel(models.Model):
     quiz = models.ForeignKey(QuizModel, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    answers = models.JSONField()
+    answers = models.JSONField() # CAMBIAR A FORMATO {question_id: answer_index}
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
