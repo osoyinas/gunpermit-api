@@ -73,4 +73,8 @@ class UserQuestionAttemptModel(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.user.username} - {self.questionWithAnswer.question.id} - {self.answer}"
+        return f'{self.user.email} - {self.question_with_answer.question.question}'
+
+    @property
+    def is_correct(self):
+        return self.question_with_answer.is_correct
