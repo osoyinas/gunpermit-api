@@ -38,6 +38,7 @@ class QuizCategorySerializer(serializers.ModelSerializer):
         model = QuizCategoryModel
         fields = "__all__"
 
+
 class CreateQuizSerializer(serializers.ModelSerializer):
     questions = serializers.ListField(
         child=serializers.IntegerField()
@@ -117,14 +118,17 @@ class MakeQuizSerializer(serializers.Serializer):
         user = self.context.get('user')
         user_answers = validated_data['answers']
 
-        formated_answers = list(map(
-            lambda answer: answer['answer'], user_answers))
-        
+        formatted_answers = list(map(
+            lambda answer: {
+                'questionId': answer['question'],
+                'answerIndex': answer['answer']
+            }, user_answers))
+
         # Create QuizResultModel instance
         result = QuizResultModel.objects.create(
             quiz=quiz,
             user=user,
-            answers=formated_answers
+            answers=formatted_answers
         )
         return result
 

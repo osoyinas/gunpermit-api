@@ -11,7 +11,7 @@ from quizzes_app.models import QuizModel
 class QuizResultModel(models.Model):
     quiz = models.ForeignKey(QuizModel, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    answers = models.JSONField() # CAMBIAR A FORMATO {question_id: answer_index}
+    answers = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -26,16 +26,28 @@ class QuizResultModel(models.Model):
                 f"El campo 'answers' debe tener exactamente {self.quiz.questions.count()} elementos.")
 
         for answer in self.answers:
-            if not isinstance(answer, int):
+            if not isinstance(answer, dict):
                 raise ValidationError(
-                    "Cada elemento en 'answers' debe ser un entero.")
+                    "Cada elemento en 'answers' debe ser un diccionario. Tipo recibido: {}".format(type(answer)))
+            if 'questionId' not in answer or 'answerIndex' not in answer:
+                raise ValidationError(
+                    "Cada diccionario en 'answers' debe contener las claves 'questionId' y 'answerIndex'.")
+            if not isinstance(answer['questionId'], int) or not isinstance(answer['answerIndex'], int):
+                raise ValidationError(
+                    "Los valores de 'questionId' y 'answerIndex' deben ser enteros.")
 
     @property
     def correct_answers(self):
+        self.clean_answers()
         correct_answers = 0
-        for index, question in enumerate(self.quiz.questions.all()):
-            if index == question.correct_answer_index:
+        for answer in self.answers:
+            question = self.quiz.questions.filter(
+                id=answer['questionId']).first()
+            if question is None:
+                continue
+            if question.correct_answer_index == answer['answerIndex']:
                 correct_answers += 1
+
         return correct_answers
 
     @property
