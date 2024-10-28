@@ -31,10 +31,52 @@ class QuizSerializer(serializers.ModelSerializer):
                   'questions']
 
 
-class QuizCategorySerializer(serializers.ModelSerializer):
+class QuizCategory(serializers.ModelSerializer):
+    quizzes = serializers.IntegerField(source="quizzes_count", read_only=True)
+
     class Meta:
         model = QuizCategoryModel
-        fields = "__all__"
+        fields = ("id", "title", "description", "tag", "quizzes")
+
+
+class QuizCategoryWithQuizAttemptSerializer(serializers.ModelSerializer):
+    quizzes = serializers.IntegerField(source="quizzes_count", read_only=True)
+
+    class Meta:
+        model = QuizCategoryModel
+        fields = ("id", "title", "description", "tag", "quizzes")
+
+    def to_representation(self, instance):
+        user = self.context.get("request").user
+        tried_quizzes = (
+            QuizResultModel.objects.filter(
+                quiz__category=instance, user=user
+            )
+            .values_list("quiz", flat=True)
+            .distinct()
+            .count()
+        )
+        failed_quizzes = filter(
+            lambda x: x.passed is False,
+            QuizResultModel.objects.filter(
+                quiz__category=instance, user=user
+            )
+        )
+        passed_quizzes = filter(
+            lambda x: x.passed is True,
+            QuizResultModel.objects.filter(
+                quiz__category=instance, user=user
+            )
+        )
+        return {
+            "id": instance.id,
+            "title": instance.title,
+            "description": instance.description,
+            "tag": instance.tag,
+            "total_quizzes": instance.quizzes_count,
+            "passed_quizzes": len(list(passed_quizzes)),
+            "failed_quizzes": len(list(failed_quizzes)),
+        }
 
 
 class CreateQuizSerializer(serializers.ModelSerializer):
@@ -75,10 +117,12 @@ class CreateQuizSerializer(serializers.ModelSerializer):
                 'description': instance.description,
                 'questions': len(instance.questions.all()),
                 'score': attempt.score,
-                'passed': attempt.passed
+                'passed': attempt.passed,
+                'number': instance.number
             }
         return {
             'id': instance.id,
+            'number': instance.number,
             'title': instance.title,
             'description': instance.description,
             'questions': len(instance.questions.all())
