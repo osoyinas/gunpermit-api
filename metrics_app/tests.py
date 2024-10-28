@@ -19,11 +19,18 @@ class ListUserResultsTests(APITestCase):
         self.quiz = createQuizMock()
         # Create some QuizResultModel instances
         for i in range(15):
+            answers = []
+            for question in self.quiz.questions.all():
+                answers.append({
+                    'questionId': question.id,
+                    'answerIndex': random.randint(0, len(question.answers) - 1)
+                })
             QuizResultModel.objects.create(
                 quiz=self.quiz,
                 user=self.user,
-                answers = [random.choice([0, 2]) for _ in range(3)]
+                answers=answers
             )
+
     def test_list_user_results_default_pagination(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
