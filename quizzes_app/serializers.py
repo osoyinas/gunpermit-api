@@ -5,7 +5,7 @@ from questions_app.serializers import QuestionSerializer
 from quizzes_app.mocks import createQuizMock
 from .models import QuizCategoryModel, QuizModel, QuizQuestionModel
 from questions_app.models import QuestionModel
-from tracking_app.models import UserQuestionAttemptModel, QuizResultModel
+from tracking_app.models import QuestionWithAnswerModel, UserQuestionAttemptModel, QuizResultModel
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):
@@ -118,18 +118,25 @@ class MakeQuizSerializer(serializers.Serializer):
         user = self.context.get('user')
         user_answers = validated_data['answers']
 
-        formatted_answers = list(map(
-            lambda answer: {
-                'questionId': answer['question'],
-                'answerIndex': answer['answer']
-            }, user_answers))
+        # Crear instancias de QuestionWithAnswerModel
+        question_with_answer_instances = []
+        for answer in user_answers:
+            question_with_answer = QuestionWithAnswerModel.objects.create(
+                question_id=answer['question'],
+                answer=answer['answer']
+            )
+            question_with_answer_instances.append(question_with_answer)
 
-        # Create QuizResultModel instance
+        # Crear instancia de QuizResultModel
         result = QuizResultModel.objects.create(
             quiz=quiz,
-            user=user,
-            answers=formatted_answers
+            user=user
         )
+
+        # Asignar respuestas al campo answers
+        result.answers.set(question_with_answer_instances)
+        result.save()
+
         return result
 
 

@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from auth_app.mocks import createUserMock, getAuthenticatedClient
 from quizzes_app.mocks import createQuizMock
-from tracking_app.models import QuizResultModel
+from tracking_app.models import QuestionWithAnswerModel, QuizResultModel
 import random
 import json
 
@@ -19,17 +19,16 @@ class ListUserResultsTests(APITestCase):
         self.quiz = createQuizMock()
         # Create some QuizResultModel instances
         for i in range(15):
-            answers = []
-            for question in self.quiz.questions.all():
-                answers.append({
-                    'questionId': question.id,
-                    'answerIndex': random.randint(0, len(question.answers) - 1)
-                })
-            QuizResultModel.objects.create(
+            quiz_result = QuizResultModel.objects.create(
                 quiz=self.quiz,
                 user=self.user,
-                answers=answers
             )
+            for question in self.quiz.questions.all():
+                question_with_answer = QuestionWithAnswerModel.objects.create(
+                    question=question,
+                    answer=random.randint(0, len(question.answers) - 1)
+                )
+                quiz_result.answers.add(question_with_answer)
 
     def test_list_user_results_default_pagination(self):
         response = self.client.get(self.url)
