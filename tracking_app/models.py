@@ -89,4 +89,5 @@ class UserQuestionAttemptModel(models.Model):
 
     @property
     def is_correct(self):
+        self.clean_answer()
         return self.question.answers[self.answer]['is_true']
