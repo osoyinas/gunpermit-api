@@ -5,4 +5,9 @@ from .models import QuizResultModel, UserQuestionAttemptModel
 
 @receiver(post_save, sender=QuizResultModel)
 def quiz_result_created(sender, instance: QuizResultModel, created, **kwargs):
-    return
+    for answer in instance.answers.all():
+        UserQuestionAttemptModel.objects.update_or_create(
+            user=instance.user,
+            question_with_answer=answer,
+            defaults={'user': instance.user, 'question_with_answer': answer},
+        )
