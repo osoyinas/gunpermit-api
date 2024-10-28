@@ -30,10 +30,11 @@ class QuizModel(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         constraints = [
-            UniqueConstraint(fields=['number', 'category'], name='unique_number_category')
+            UniqueConstraint(fields=['number', 'category'],
+                             name='unique_number_category')
         ]
 
 
