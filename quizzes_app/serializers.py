@@ -51,16 +51,16 @@ class CreateQuizSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         question_ids = validated_data.pop('questions')
 
-        # Verificar que todas las preguntas existan
+        # Verify that all questions exist
         questions = QuestionModel.objects.filter(id__in=question_ids)
         if len(questions) != len(question_ids):
             raise serializers.ValidationError(
                 "Una o más preguntas no existen.")
 
-        # Crear el quiz
+        # Create the quiz
         quiz = QuizModel.objects.create(**validated_data)
 
-        # Asociar las preguntas con el quiz
+        # Associate the questions with the quiz
         for question in questions:
             QuizQuestionModel.objects.create(quiz=quiz, question=question)
 
@@ -118,7 +118,7 @@ class MakeQuizSerializer(serializers.Serializer):
         user = self.context.get('user')
         user_answers = validated_data['answers']
 
-        # Crear instancias de QuestionWithAnswerModel
+        # Create instances of QuestionWithAnswerModel
         question_with_answer_instances = []
         for answer in user_answers:
             question_with_answer = QuestionWithAnswerModel.objects.create(
@@ -127,13 +127,13 @@ class MakeQuizSerializer(serializers.Serializer):
             )
             question_with_answer_instances.append(question_with_answer)
 
-        # Crear instancia de QuizResultModel
+        # Create instance of QuizResultModel
         result = QuizResultModel.objects.create(
             quiz=quiz,
             user=user
         )
 
-        # Asignar respuestas al campo answers
+        # Assign answers to the answers field
         result.answers.set(question_with_answer_instances)
         result.save()
 
