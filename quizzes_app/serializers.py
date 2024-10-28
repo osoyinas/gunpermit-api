@@ -67,8 +67,9 @@ class CreateQuizSerializer(serializers.ModelSerializer):
         return quiz
 
     def to_representation(self, instance):
+        user = self.context.get('request').user
         attempt = QuizResultModel.objects.filter(
-            quiz=instance).order_by('-created_at').first()
+            quiz=instance, user=user).order_by('-created_at').first()
         if attempt:
             return {
                 'id': instance.id,
