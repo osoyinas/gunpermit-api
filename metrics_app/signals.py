@@ -21,7 +21,7 @@ def user_created(sender, instance: CustomUser, created, **kwargs):
 @receiver(post_save, sender=UserQuestionAttemptModel)
 def quiz_result_created(sender, instance: UserQuestionAttemptModel, created, **kwargs):
     user = instance.user
-    topic = instance.question_with_answer.question.topic
+    topic = instance.question.topic
 
     # Get the topic metrics
     try:
