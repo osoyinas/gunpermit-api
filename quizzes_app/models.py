@@ -12,6 +12,10 @@ class QuizCategoryModel(models.Model):
     def __str__(self):
         return f'#{self.tag}'
 
+    @property
+    def quizzes_count(self):
+        return self.quizzes.count()
+
 
 class QuizModel(models.Model):
     title = models.CharField(max_length=200)
