@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from metrics_app.models import TopicMetricsModel
 from tracking_app.models import QuizResultModel
 
 
@@ -13,14 +14,9 @@ class ResultsSerializer(serializers.ModelSerializer):
         fields = ('id', 'date', 'score', 'mark', 'passed')
 
 
-class TopicResultSerializer(serializers.Serializer):
-    topic = serializers.CharField()
-    mark = serializers.IntegerField()
-    full_mark = serializers.IntegerField()
+class TopicMetricsSerializer(serializers.ModelSerializer):
+    topic = serializers.CharField(source='topic.title')
 
     class Meta:
+        model = TopicMetricsModel
         fields = ('topic', 'mark', 'full_mark')
-
-
-class TopicResultsListSerializer(serializers.ListSerializer):
-    child = TopicResultSerializer()
