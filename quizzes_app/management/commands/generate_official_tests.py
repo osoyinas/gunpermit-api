@@ -21,9 +21,15 @@ class Command(BaseCommand):
         with open(schema_file_path, 'r', encoding='utf-8') as schema_file:
             schema_data = json.load(schema_file)
 
-        oficial_category = QuizCategoryModel.objects.get(tag='oficial')
+        oficial_category, created = QuizCategoryModel.objects.get_or_create(tag='oficial',
+                                                                            defaults={
+                                                                                'title': 'Oficial',
+                                                                                'description': 'Quizzes oficiales',
+                                                                                'tag': 'oficial'}
+                                                                            )
         for test_num in range(num_tests):
-            quiz = QuizModel.objects.create(title=f'Test {test_num + 1}', number=test_num + 1, category=oficial_category)
+            quiz = QuizModel.objects.create(
+                title=f'Test {test_num + 1}', number=test_num + 1, category=oficial_category)
             order = 0
 
             for item in schema_data:
