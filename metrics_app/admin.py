@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from metrics_app.models import TopicMetricsModel
+
+admin.site.register(TopicMetricsModel)
