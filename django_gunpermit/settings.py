@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'auth_app.apps.AuthAppConfig',
     'quizzes_app',
     'assessments_app',
-    'metrics_app',
+    'metrics_app.apps.MetricsAppConfig',
     'tracking_app',
     'django_rest_passwordreset'
 ]
@@ -180,7 +180,6 @@ CORS_ALLOWED_ORIGINS = [
 ALLOWED_HOSTS = ['*']
 
 # Load email settings
-from .email_settings import *
 
 WEBAPP_URL = config('WEBAPP_URL', default='http://localhost:3000')
 
