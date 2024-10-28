@@ -5,8 +5,6 @@ from auth_app.models import CustomUser
 from questions_app.models import QuestionModel
 from quizzes_app.models import QuizModel
 
-# Create your models here.
-
 
 class QuestionWithAnswerModel(models.Model):
     question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE)
@@ -60,21 +58,18 @@ class QuizResultModel(models.Model):
 
 
 class UserQuestionAttemptModel(models.Model):
+    question = models.ForeignKey(
+        QuestionModel, on_delete=models.CASCADE, related_name="user_attempts")
     user = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name="question_attempts")
-    question_with_answer = models.ForeignKey(
-        QuestionWithAnswerModel, on_delete=models.CASCADE)
+    is_correct = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = ('user', 'question_with_answer')
+        unique_together = ('user', 'question')
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'question_with_answer'], name='unique_user_question')
+                fields=['user', 'question'], name='unique_user_question')
         ]
 
     def __str__(self):
         return f'{self.user.email} - {self.question_with_answer.question.question}'
-
-    @property
-    def is_correct(self):
-        return self.question_with_answer.is_correct

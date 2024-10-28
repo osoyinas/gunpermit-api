@@ -7,7 +7,11 @@ from .models import QuizResultModel, UserQuestionAttemptModel
 def quiz_result_created(sender, instance: QuizResultModel, created, **kwargs):
     for answer in instance.answers.all():
         UserQuestionAttemptModel.objects.update_or_create(
+            question=answer.question,
             user=instance.user,
-            question_with_answer=answer,
-            defaults={'user': instance.user, 'question_with_answer': answer},
+            defaults={
+                "user": instance.user,
+                "question": answer.question,
+                "is_correct": answer.is_correct,
+            },
         )
