@@ -2,7 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from auth_app.permissions import IsAdminOrReadOnly
 from quizzes_app.models import QuizCategoryModel, QuizModel
-from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizCategorySerializer, QuizSerializer
+from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizCategoryWithQuizAttemptSerializer, QuizSerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -63,5 +63,5 @@ class MakeQuizAPIView(generics.GenericAPIView):
 
 class ListQuizCategoriesView(generics.ListAPIView):
     queryset = QuizCategoryModel.objects.all()
-    serializer_class = QuizCategorySerializer
+    serializer_class = QuizCategoryWithQuizAttemptSerializer
     permission_classes = [permissions.IsAuthenticated]
