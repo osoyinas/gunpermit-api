@@ -1,11 +1,9 @@
 from django.forms import ValidationError
 from rest_framework import serializers
 
-from questions_app.serializers import QuestionSerializer
-from quizzes_app.mocks import createQuizMock
 from .models import QuizCategoryModel, QuizModel, QuizQuestionModel
 from questions_app.models import QuestionModel
-from tracking_app.models import QuestionWithAnswerModel, UserQuestionAttemptModel, QuizResultModel
+from tracking_app.models import QuestionWithAnswerModel, QuizResultModel
 
 
 class QuizQuestionSerializer(serializers.ModelSerializer):

@@ -1,11 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from metrics_app.models import TopicMetricsModel
-from questions_app.models import TopicModel, QuestionModel
-from tracking_app.models import UserQuestionAttemptModel
 from metrics_app.serializers import ResultsSerializer, TopicMetricsSerializer
 from metrics_app.pagination import CustomPagination
 
