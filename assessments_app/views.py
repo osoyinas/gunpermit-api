@@ -1,31 +1,27 @@
 from django.utils import timezone
-from rest_framework import generics
+from auth_app.generics import *
 from assessments_app.models import AssessmentModel, PlaceModel
 from assessments_app.serializers import AssessmentSerializer, PlaceSerializer
 from auth_app.permissions import IsAdminOrReadOnly
 
 
-class ListCreatePlace (generics.ListCreateAPIView):
+class ListCreatePlace (ReadableListCreateAPIView):
     queryset = PlaceModel.objects.all()
     serializer_class = PlaceSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 
-class ListCreateAssessment(generics.ListCreateAPIView):
+class ListCreateAssessment(ReadableListCreateAPIView):
     queryset = AssessmentModel.objects.all()
     serializer_class = AssessmentSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 
-class RetrieveUpdateDestroyAssessment(generics.RetrieveUpdateDestroyAPIView):
+class RetrieveUpdateDestroyAssessment(ReadableRetrieveUpdateDestroyAPIView):
     queryset = AssessmentModel.objects.all()
     serializer_class = AssessmentSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 
-class NextAssessmentByPlace(generics.RetrieveAPIView):
+class NextAssessmentByPlace(ReadableRetrieveAPIView):
     serializer_class = AssessmentSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
         place_id = self.kwargs.get('pk')
