@@ -28,7 +28,7 @@ class TrackingTests(TestCase):
         for question_with_answers in quiz_result.answers.all():
             question_attempt = UserQuestionAttemptModel.objects.get(
                 user=self.user,
-                question_with_answer=question_with_answers
+                question=question_with_answers.question
             )
             self.assertIsNotNone(question_attempt)
         self.assertEqual(quiz_result.score, 100)
