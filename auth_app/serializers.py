@@ -2,6 +2,9 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
+from django_gunpermit.settings import SIMPLE_JWT
+
+ACCESS_TOKEN_LIFETIME = SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
 
 
 class LoginSerializer(serializers.Serializer):
@@ -39,6 +42,7 @@ class LoginSerializer(serializers.Serializer):
             "last_name": instance.last_name,
             "refresh_token": self.refresh_token,
             "access_token": self.access_token,
+            "expires_in": ACCESS_TOKEN_LIFETIME,
         }
 
 
