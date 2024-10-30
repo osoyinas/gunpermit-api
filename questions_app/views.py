@@ -1,40 +1,46 @@
 from rest_framework import generics, permissions
 
 from auth_app.permissions import IsAdminOrReadOnly
+from auth_app.generics import *
 from .models import TopicModel, QuestionModel
 from .serializers import TopicSerializer, QuestionSerializer
+from oauth2_provider.contrib.rest_framework.permissions import (
+    IsAuthenticatedOrTokenHasScope,
+)
 
 
-class ListCreateTopicsView(generics.ListCreateAPIView):
+class ListTopicsView(ReadableListAPIView):
     queryset = TopicModel.objects.all()
     serializer_class = TopicSerializer
-    permission_classes = [IsAdminOrReadOnly, ]
 
 
-class RetrieveUpdateDestroyTopicsView(generics.RetrieveUpdateDestroyAPIView):
+class RetrieveUpdateDestroyTopicsView(ReadableRetrieveUpdateDestroyAPIView):
     queryset = TopicModel.objects.all()
     serializer_class = TopicSerializer
-    permission_classes = [IsAdminOrReadOnly]
 
 
-class ListCreateQuestionsView(generics.ListCreateAPIView):
+class ListQuestionsView(ReadableListAPIView):
     serializer_class = QuestionSerializer
     queryset = QuestionModel.objects.all()
-    permission_classes = [IsAdminOrReadOnly, ]
+    permission_classes = [
+        IsAuthenticatedOrTokenHasScope,
+    ]
+    required_scopes = ["read"]
 
 
-class ListQuestionsTopicView(generics.ListAPIView):
+class ListQuestionsTopicView(ReadableListAPIView):
     serializer_class = QuestionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrTokenHasScope]
+    required_scopes = ["read"]
 
     def get_queryset(self, *args, **kwargs):
         # Obtiene el <topic_id> de la URL
-        topic_id = self.kwargs.get('topic_id')
+        topic_id = self.kwargs.get("topic_id")
         queryset = QuestionModel.objects.filter(topic__id=topic_id)
         return queryset
 
 
-class RetrieveDestroyUpdateQuestionView(generics.RetrieveUpdateDestroyAPIView):
+class RetrieveDestroyUpdateQuestionView(ReadableRetrieveUpdateDestroyAPIView):
     queryset = QuestionModel.objects.all()
     serializer_class = QuestionSerializer
-    permission_classes = [IsAdminOrReadOnly, ]
+    permission_classes = [IsAuthenticatedOrTokenHasScope]
