@@ -4,18 +4,17 @@ from auth_app.permissions import IsAdminOrReadOnly
 from quizzes_app.models import QuizCategoryModel, QuizModel
 from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizCategoryWithQuizAttemptSerializer, QuizSerializer
 from drf_yasg.utils import swagger_auto_schema
+from auth_app.generics import *
 
 
-class RetrieveDestroyQuizAPIView(generics.RetrieveDestroyAPIView):
+class RetrieveDestroyUpdateQuizAPIView(ReadableRetrieveUpdateDestroyAPIView):
     queryset = QuizModel.objects.all()
     serializer_class = QuizSerializer
-    permission_classes = [IsAdminOrReadOnly,]
 
 
-class ListCreateQuizApiView(generics.ListCreateAPIView):
+class ListCreateQuizApiView(ReadableListCreateAPIView):
     queryset = QuizModel.objects.all()
     serializer_class = CreateQuizSerializer
-    permission_classes = [IsAdminOrReadOnly,]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -61,7 +60,6 @@ class MakeQuizAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ListQuizCategoriesView(generics.ListAPIView):
+class ListQuizCategoriesView(ReadableListAPIView):
     queryset = QuizCategoryModel.objects.all()
     serializer_class = QuizCategoryWithQuizAttemptSerializer
-    permission_classes = [permissions.IsAuthenticated]
