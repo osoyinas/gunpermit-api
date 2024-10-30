@@ -11,6 +11,9 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(
         max_length=24, min_length=8, write_only=True)
 
+    refresh_token = serializers.CharField(read_only=True)
+    access_token = serializers.CharField(read_only=True)
+
     def validate(self, data):
         email = data.get("email", None)
         password = data.get("password", None)
@@ -22,9 +25,20 @@ class LoginSerializer(serializers.Serializer):
 
     def get_tokens(self, user):
         refresh = RefreshToken.for_user(user)
+        self.refresh_token = str(refresh)
+        self.access_token = str(refresh.access_token)
         return {
             "refresh": str(refresh),
             "access": str(refresh.access_token),
+        }
+    def to_representation(self, instance):
+        return {
+            "id": instance.id,
+            "email": instance.email,
+            "first_name": instance.first_name,
+            "last_name": instance.last_name,
+            "refresh_token": self.refresh_token,
+            "access_token": self.access_token,
         }
 
 

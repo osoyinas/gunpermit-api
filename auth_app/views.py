@@ -25,11 +25,7 @@ class LoginView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data
             tokens = serializer.get_tokens(user)
-
-            response_data = {
-                'access': tokens['access'],
-            }
-            response = Response(response_data, status=status.HTTP_200_OK)
+            response = Response(serializer.data, status=status.HTTP_200_OK)
             set_refresh_token_in_cookies(response, tokens['refresh'])
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
