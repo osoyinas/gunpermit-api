@@ -2,7 +2,7 @@ from datetime import timedelta
 import datetime
 from django.http import JsonResponse
 from rest_framework import generics, permissions
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import LoggedUserSerializer, RegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,6 +20,7 @@ from django_gunpermit.settings import SIMPLE_JWT
 
 ACCESS_TOKEN_LIFETIME = SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
 
+
 class LoginView(APIView):
     authentication_classes = []
 
@@ -28,9 +29,8 @@ class LoginView(APIView):
 
         if serializer.is_valid():
             user = serializer.validated_data
-            tokens = serializer.get_tokens(user)
-            response = Response(serializer.data, status=status.HTTP_200_OK)
-            set_refresh_token_in_cookies(response, tokens['refresh'])
+            response_data = (LoggedUserSerializer(user)).data
+            response = Response(response_data, status=status.HTTP_200_OK)
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -43,13 +43,8 @@ class RegisterUserView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            tokens = serializer.get_tokens(user)
-
-            response_data = {
-                'access': tokens['access'],
-            }
+            response_data = (LoggedUserSerializer(user)).data
             response = Response(response_data, status=status.HTTP_200_OK)
-            set_refresh_token_in_cookies(response, tokens['refresh'])
             return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

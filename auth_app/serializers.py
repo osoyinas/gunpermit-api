@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -7,15 +8,36 @@ from django_gunpermit.settings import SIMPLE_JWT
 ACCESS_TOKEN_LIFETIME = SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
 
 
+class LoggedUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+
+    def get_existing_tokens(self, user):
+        refresh = RefreshToken.for_user(user)
+        return {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
+
+    def to_representation(self, instance):
+        refresh = RefreshToken.for_user(instance)
+        return {
+            "id": instance.id,
+            "email": instance.email,
+            "first_name": instance.first_name,
+            "last_name": instance.last_name,
+            "refresh_token": str(refresh),
+            "access_token": str(refresh.access_token),
+            "expires_in": datetime.datetime.now() + ACCESS_TOKEN_LIFETIME,
+        }
+
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(
         max_length=255,
     )
     password = serializers.CharField(
         max_length=24, min_length=8, write_only=True)
-
-    refresh_token = serializers.CharField(read_only=True)
-    access_token = serializers.CharField(read_only=True)
 
     def validate(self, data):
         email = data.get("email", None)
@@ -25,25 +47,6 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 "Correo o contraseña incorrectos.")
         return user
-
-    def get_tokens(self, user):
-        refresh = RefreshToken.for_user(user)
-        self.refresh_token = str(refresh)
-        self.access_token = str(refresh.access_token)
-        return {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
-    def to_representation(self, instance):
-        return {
-            "id": instance.id,
-            "email": instance.email,
-            "first_name": instance.first_name,
-            "last_name": instance.last_name,
-            "refresh_token": self.refresh_token,
-            "access_token": self.access_token,
-            "expires_in": ACCESS_TOKEN_LIFETIME,
-        }
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -101,13 +104,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         user = get_user_model().objects.create_user(**validated_data)
         return user
-
-    def get_tokens(self, user):
-        refresh = RefreshToken.for_user(user)
-        return {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
 
 
 class UserSerializer(serializers.ModelSerializer):
