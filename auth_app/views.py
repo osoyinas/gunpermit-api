@@ -2,7 +2,7 @@ from datetime import timedelta
 import datetime
 from django.http import JsonResponse
 from rest_framework import generics, permissions
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import LoggedUserSerializer, RegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -16,21 +16,21 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import update_session_auth_hash
 from .serializers import ChangePasswordSerializer
+from django_gunpermit.settings import SIMPLE_JWT
+
+ACCESS_TOKEN_LIFETIME = SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
+
 
 class LoginView(APIView):
     authentication_classes = []
+
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
 
         if serializer.is_valid():
             user = serializer.validated_data
-            tokens = serializer.get_tokens(user)
-
-            response_data = {
-                'access': tokens['access'],
-            }
+            response_data = (LoggedUserSerializer(user)).data
             response = Response(response_data, status=status.HTTP_200_OK)
-            set_refresh_token_in_cookies(response, tokens['refresh'])
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -43,13 +43,8 @@ class RegisterUserView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            tokens = serializer.get_tokens(user)
-
-            response_data = {
-                'access': tokens['access'],
-            }
+            response_data = (LoggedUserSerializer(user)).data
             response = Response(response_data, status=status.HTTP_200_OK)
-            set_refresh_token_in_cookies(response, tokens['refresh'])
             return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -67,7 +62,9 @@ class CookieTokenRefreshView(APIView):
             refresh_token = str(token)
 
             response_data = {
-                'access': access_token,
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+                'expires_in': datetime.datetime.now() + ACCESS_TOKEN_LIFETIME,
             }
 
             response = Response(response_data, status=status.HTTP_200_OK)
@@ -111,11 +108,13 @@ class ChangePasswordView(generics.CreateAPIView):
         if serializer.is_valid():
             user = request.user
             user.set_password(serializer.data.get('new_password'))
-            response = Response({'detail': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+            response = Response(
+                {'detail': 'Password changed successfully.'}, status=status.HTTP_200_OK)
             user.save()
             response = logout_user(response, refresh_token)
             return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class DeleteAccountView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -124,16 +123,18 @@ class DeleteAccountView(generics.DestroyAPIView):
         user = request.user
         refresh_token = request.COOKIES.get('refreshToken')
         user.delete()
-        response = Response({'detail': 'Account deleted successfully.'}, status=status.HTTP_200_OK)
+        response = Response(
+            {'detail': 'Account deleted successfully.'}, status=status.HTTP_200_OK)
         response = logout_user(response, refresh_token)
         return response
-    
+
 
 def logout_user(response: Response, refresh_token: str):
     print("Logging out", refresh_token)
     delete_refresh_token_from_cookies(response)
     RefreshToken(refresh_token)
     return response
+
 
 def set_refresh_token_in_cookies(response: Response, refresh_token: str):
     response.set_cookie(

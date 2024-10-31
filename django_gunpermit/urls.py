@@ -20,6 +20,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from .health_check import health_check
+from oauth2_provider import urls as oauth2_urls
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -36,9 +37,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('questions_app.urls')),
     path('api/v1/auth/', include('auth_app.urls')),
+    path('api/v1/oauth2/', include(oauth2_urls)),
     path('api/v1/quizzes/', include('quizzes_app.urls')),
     path('api/v1/', include('assessments_app.urls')),
     path('api/v1/metrics/', include('metrics_app.urls')),
     path('health/', health_check, name='health-check'),
-
 ]

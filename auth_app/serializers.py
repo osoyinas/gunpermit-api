@@ -1,7 +1,35 @@
+import datetime
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
+from django_gunpermit.settings import SIMPLE_JWT
+
+ACCESS_TOKEN_LIFETIME = SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
+
+
+class LoggedUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+
+    def get_existing_tokens(self, user):
+        refresh = RefreshToken.for_user(user)
+        return {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
+
+    def to_representation(self, instance):
+        refresh = RefreshToken.for_user(instance)
+        return {
+            "id": instance.id,
+            "email": instance.email,
+            "first_name": instance.first_name,
+            "last_name": instance.last_name,
+            "refresh_token": str(refresh),
+            "access_token": str(refresh.access_token),
+            "expires_in": datetime.datetime.now() + ACCESS_TOKEN_LIFETIME,
+        }
 
 
 class LoginSerializer(serializers.Serializer):
@@ -19,13 +47,6 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 "Correo o contraseña incorrectos.")
         return user
-
-    def get_tokens(self, user):
-        refresh = RefreshToken.for_user(user)
-        return {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -83,13 +104,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         user = get_user_model().objects.create_user(**validated_data)
         return user
-
-    def get_tokens(self, user):
-        refresh = RefreshToken.for_user(user)
-        return {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }
 
 
 class UserSerializer(serializers.ModelSerializer):
