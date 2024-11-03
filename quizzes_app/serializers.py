@@ -108,15 +108,19 @@ class CreateQuizSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         user = self.context.get('request').user
-        attempt = QuizResultModel.objects.filter(
-            quiz=instance, user=user).order_by('-created_at').first()
+        attempts = QuizResultModel.objects.filter(
+            quiz=instance, user=user).order_by('-created_at')
+        attempt = attempts.first()
         if attempt:
+            attempts_count = attempts.count()
             return {
                 'id': instance.id,
                 'title': instance.title,
                 'description': instance.description,
                 'questions': len(instance.questions.all()),
                 'score': attempt.score,
+                'score_str': attempt.score_str,
+                'attempts': attempts_count,
                 'passed': attempt.passed,
                 'number': instance.number
             }
@@ -125,7 +129,8 @@ class CreateQuizSerializer(serializers.ModelSerializer):
             'number': instance.number,
             'title': instance.title,
             'description': instance.description,
-            'questions': len(instance.questions.all())
+            'questions': len(instance.questions.all()),
+            'attempts': 0
         }
 
 
