@@ -28,7 +28,7 @@ def register_social_user(provider, user_id, email, name, first_name='', last_nam
 
         else:
             raise AuthenticationFailed(
-                detail=f"Por favor, incia sesion con {user.auth_provider} en lugar de {provider}")
+                detail=f"Por favor, incia sesion con {user.auth_provider} en lugar de {provider}. Correo: {email}")
 
     else:
         user = {
