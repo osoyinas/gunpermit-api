@@ -26,6 +26,7 @@ class LoggedUserSerializer(serializers.ModelSerializer):
             "email": instance.email,
             "first_name": instance.first_name,
             "last_name": instance.last_name,
+            "provider": instance.auth_provider,
             "refresh_token": str(refresh),
             "access_token": str(refresh.access_token),
             "expires_in": datetime.datetime.now() + ACCESS_TOKEN_LIFETIME,
