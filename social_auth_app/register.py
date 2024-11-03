@@ -18,13 +18,12 @@ def generate_username(name):
         return generate_username(random_username)
 
 
-def register_social_user(provider, user_id, email, name):
+def register_social_user(provider, user_id, email, name, first_name='', last_name=''):
     user = User.objects.filter(email=email).first()
 
     if user is not None:
 
         if provider == user.auth_provider:
-            print("Already registered user: ", user)
             return user
 
         else:
@@ -41,5 +40,4 @@ def register_social_user(provider, user_id, email, name):
         # user.is_verified = True
         user.auth_provider = provider
         user.save()
-        print("Created user: ", user)
         return user
