@@ -47,6 +47,9 @@ class LoginSerializer(serializers.Serializer):
         if user is None:
             raise serializers.ValidationError(
                 "Correo o contraseña incorrectos.")
+        if user.auth_provider != "email":
+            raise serializers.ValidationError(
+                f"Intentalo con {user.auth_provider}.")
         return user
 
 
@@ -131,6 +134,10 @@ class ChangePasswordSerializer(serializers.Serializer):
         if not self.context["request"].user.check_password(attrs["old_password"]):
             raise serializers.ValidationError(
                 {"old_password": "Contraseña incorrecta."})
+        if self.context["request"].user.auth_provider != "email":
+            raise serializers.ValidationError(
+                {"provider": "El proveedor de autenticación debe ser 'email'."}
+            )
         return super().validate(attrs)
 
 
