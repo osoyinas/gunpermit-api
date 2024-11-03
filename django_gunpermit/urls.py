@@ -37,6 +37,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('questions_app.urls')),
     path('api/v1/auth/', include('auth_app.urls')),
+    path('api/v1/social-auth/', include('social_auth_app.urls')),
     path('api/v1/oauth2/', include(oauth2_urls)),
     path('api/v1/quizzes/', include('quizzes_app.urls')),
     path('api/v1/', include('assessments_app.urls')),

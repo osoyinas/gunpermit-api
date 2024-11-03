@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'metrics_app.apps.MetricsAppConfig',
     'tracking_app',
     'django_rest_passwordreset',
-    'oauth2_provider'
+    'oauth2_provider',
+    'social_auth_app'
 ]
 
 MIDDLEWARE = [
@@ -199,3 +200,10 @@ OAUTH2_PROVIDER = {
     },
     'DEFAULT_SCOPES': ['read'],
 }
+
+# Google Oauth2 settings
+GOOGLE_OAUTH2_CLIENT_ID = config('GOOGLE_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = config('GOOGLE_CLIENT_SECRET')
+
+GOOGLE_ACCESS_TOKEN_OBTAIN_URL = 'https://oauth2.googleapis.com/token'
+GOOGLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
