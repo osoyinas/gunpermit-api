@@ -72,4 +72,4 @@ class UserQuestionAttemptModel(models.Model):
         ]
 
     def __str__(self):
-        return f'{self.user.email} - {self.question_with_answer.question.question}'
+        return f'{self.user.email} - {self.question}'
