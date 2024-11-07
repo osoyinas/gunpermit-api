@@ -23,6 +23,7 @@ class TopicSerializerWithQuestions(serializers.ModelSerializer):
 
 
 class TopicSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = TopicModel
-        fields = "__all__"
+        fields = ('id', 'title', 'description', 'questions_count')

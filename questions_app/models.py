@@ -9,6 +9,10 @@ class TopicModel(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def questions_count(self):
+        return self.questions.count()
+
 
 ANSWERS_STRUCTURE = [{'answer': str, 'is_true': bool}] * 3
 DEFAULT_ANSWERS = [{'answer': "respuesta", 'is_true': False}] * 3
@@ -40,7 +44,7 @@ class QuestionModel(models.Model):
                 if not isinstance(received_answer[key], expected_type):
                     raise ValidationError(
                         f"El valor de '{key}' en 'answers' debe ser de tipo {expected_type}.")
-    
+
     @property
     def correct_answer_index(self):
         for index, answer in enumerate(self.answers):
