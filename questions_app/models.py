@@ -31,6 +31,7 @@ class QuestionModel(models.Model):
             raise ValidationError(
                 f"El campo 'answers' debe tener exactamente {len(ANSWERS_STRUCTURE)} elementos.")
 
+        true_count = 0
         for expected_answer, received_answer in zip(ANSWERS_STRUCTURE, self.answers):
             if not isinstance(received_answer, dict):
                 raise ValidationError(
@@ -44,6 +45,12 @@ class QuestionModel(models.Model):
                 if not isinstance(received_answer[key], expected_type):
                     raise ValidationError(
                         f"El valor de '{key}' en 'answers' debe ser de tipo {expected_type}.")
+
+                if key == 'is_true' and received_answer[key]:
+                    true_count += 1
+
+        if true_count != 1:
+            raise ValidationError("Debe haber exactamente un valor 'true' en 'answers'.")
 
     @property
     def correct_answer_index(self):

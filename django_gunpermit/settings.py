@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'tracking_app',
     'django_rest_passwordreset',
     'oauth2_provider',
-    'social_auth_app'
+    'social_auth_app',
+    'django_json_widget',
 ]
 
 MIDDLEWARE = [
