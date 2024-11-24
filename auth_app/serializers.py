@@ -21,6 +21,10 @@ class LoggedUserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         refresh = RefreshToken.for_user(instance)
+        expiration_time = datetime.datetime.now(
+            datetime.timezone.utc) + ACCESS_TOKEN_LIFETIME
+        expires_in_ms = int(expiration_time.timestamp() *
+                            1000)  # Convert to milliseconds
         return {
             "id": instance.id,
             "email": instance.email,
@@ -29,7 +33,7 @@ class LoggedUserSerializer(serializers.ModelSerializer):
             "provider": instance.auth_provider,
             "refresh_token": str(refresh),
             "access_token": str(refresh.access_token),
-            "expires_in": datetime.datetime.now() + ACCESS_TOKEN_LIFETIME,
+            "expires_in": expires_in_ms,
         }
 
 

@@ -60,11 +60,14 @@ class CookieTokenRefreshView(APIView):
             token = RefreshToken(refresh_token)
             access_token = str(token.access_token)
             refresh_token = str(token)
-
+            expiration_time = datetime.datetime.now(
+                datetime.timezone.utc) + ACCESS_TOKEN_LIFETIME
+            expires_in_ms = int(expiration_time.timestamp() *
+                                1000)  # Convert to milliseconds
             response_data = {
                 'access_token': access_token,
                 'refresh_token': refresh_token,
-                'expires_in': datetime.datetime.now() + ACCESS_TOKEN_LIFETIME,
+                'expires_in': expires_in_ms,
             }
 
             response = Response(response_data, status=status.HTTP_200_OK)
