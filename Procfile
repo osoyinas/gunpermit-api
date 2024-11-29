@@ -1,0 +1,1 @@
+web: gunicorn django_gunpermit.wsgi:application --bind 0.0.0.0:$PORT
