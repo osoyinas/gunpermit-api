@@ -25,7 +25,10 @@ class NextAssessmentByPlace(ReadableRetrieveAPIView):
 
     def get_queryset(self):
         place_id = self.kwargs.get('pk')
-        return AssessmentModel.objects.filter(place_id=place_id, date__gte=timezone.now()).order_by('date')
+        assesments = AssessmentModel.objects.filter(place_id=place_id, date__gte=timezone.now()).order_by('date')
+        if len(assesments) == 0:
+            assesments = AssessmentModel.objects.filter(place_id=place_id).order_by('-date')
+        return assesments
 
     def get_object(self):
         queryset = self.get_queryset()
