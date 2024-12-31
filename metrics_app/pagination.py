@@ -1,6 +1,6 @@
 from rest_framework.pagination import PageNumberPagination
 
-MAX_SIZE = 100
+MAX_SIZE = 2000
 DEFAULT_SIZE = 10
 
 class CustomPagination(PageNumberPagination):
