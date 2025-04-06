@@ -1,6 +1,7 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from auth_app.permissions import IsAdminOrReadOnly
+from metrics_app.pagination import CustomPagination
 from quizzes_app.models import QuizCategoryModel, QuizModel
 from quizzes_app.serializers import MakeQuizResponseSerializer, MakeQuizSerializer, CreateQuizSerializer, CreateQuizSerializer, QuizCategoryWithQuizAttemptSerializer, QuizSerializer
 from drf_yasg.utils import swagger_auto_schema
@@ -15,6 +16,7 @@ class RetrieveDestroyUpdateQuizAPIView(ReadableRetrieveUpdateDestroyAPIView):
 class ListCreateQuizApiView(ReadableListCreateAPIView):
     queryset = QuizModel.objects.all()
     serializer_class = CreateQuizSerializer
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         queryset = super().get_queryset()
