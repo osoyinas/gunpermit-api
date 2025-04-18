@@ -1,14 +1,19 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 from questions_app.forms import QuestionForm
-
 from .models import QuestionModel, TopicModel
-from django_json_widget.widgets import JSONEditorWidget
-from django.db.models import JSONField
 
 
-class QuestionAdmin(admin.ModelAdmin):
+class QuestionResource(resources.ModelResource):
+    class Meta:
+        model = QuestionModel
+
+
+class QuestionAdmin(ImportExportModelAdmin):
+    resource_class = QuestionResource
     form = QuestionForm
     list_display = ('id', 'topic', 'question', 'formatted_answers')
     list_filter = ('topic',)

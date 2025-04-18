@@ -1,5 +1,19 @@
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 from .models import QuizModel, QuizQuestionModel, QuizCategoryModel
+
+
+class QuizResource(resources.ModelResource):
+    class Meta:
+        model = QuizModel
+
+
+class QuizCategoryResource(resources.ModelResource):
+    class Meta:
+        model = QuizCategoryModel
+
 
 class QuizQuestionInline(admin.TabularInline):
     model = QuizQuestionModel
@@ -28,14 +42,18 @@ class QuizQuestionInline(admin.TabularInline):
         return "-"
     formatted_answers.short_description = "Respuestas"
 
+
 @admin.register(QuizModel)
-class QuizAdmin(admin.ModelAdmin):
+class QuizAdmin(ImportExportModelAdmin):
+    resource_class = QuizResource
     list_display = ['title', 'number', 'category', 'created_at']
     list_filter = ('category',)
     search_fields = ('title', 'number')
     inlines = [QuizQuestionInline]
-    ordering=["number", "title"]
+    ordering = ["number", "title"]
+
 
 @admin.register(QuizCategoryModel)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display =["title", "description", "tag"]
+class CategoryAdmin(ImportExportModelAdmin):
+    resource_class = QuizCategoryResource
+    list_display = ["title", "description", "tag"]

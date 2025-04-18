@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'social_auth_app',
     'django_json_widget',
+    'import_export',
 ]
 
 MIDDLEWARE = [
